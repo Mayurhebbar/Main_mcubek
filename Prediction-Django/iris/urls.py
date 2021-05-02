@@ -18,5 +18,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('predict.urls', namespace='predict'))
+    path('', include('predict_heart.urls', namespace='predict_heart'))
 ]
