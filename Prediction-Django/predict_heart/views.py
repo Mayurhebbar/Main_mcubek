@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler
 
 
 def predict_heart(request):
-    return render(request, 'predict_heart.html')
+    return render(request, 'doctor_template/predict_heart.html')
 
 
 def predict_chances_heart(request):
@@ -65,4 +65,5 @@ def predict_chances_heart(request):
 def view_results_heart(request):
     # Submit prediction and show all
     data = {"dataset": PredResults.objects.all()}
-    return render(request, "results_heart.html", data)
+
+    return render(request, "doctor_template/results_heart.html", data)

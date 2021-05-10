@@ -1,0 +1,49 @@
+{% load static %}
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+<div class="brand-link">
+      <div class="brand-text font-weight-light">Welcome {{ user.first_name }}!</div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="info">
+          <a href="{% url 'home:admin_profile' %}" class="d-block">My Profile</a>
+        </div>
+      </div>
+
+
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            {% url 'home:admin_home' as admin_home %}
+            <a href="{{ admin_home }}" class="nav-link {% if request.path == admin_home %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Home
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+              {% url 'home:manage_doctor' as manage_doctor %}
+               {% url 'home:add_doctor' as add_doctor %}
+            {% url 'home:edit_doctor' doctor_id=id as edit_doctor %}
+            <a href="{% url 'home:manage_doctor' %}" class="nav-link {% if request.path == manage_doctor %} active {% endif %} {% if request.path == edit_doctor %} active {% endif %} {% if request.path == add_doctor %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Manage Doctor
+              </p>
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

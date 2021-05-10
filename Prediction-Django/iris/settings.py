@@ -27,6 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 # Application definition
 
@@ -38,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'predict_heart',
+    'home',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'home.LoginCheckMiddleWare.LoginCheckMiddleWare'
 ]
 
 ROOT_URLCONF = 'iris.urls'
@@ -78,7 +86,7 @@ WSGI_APPLICATION = 'iris.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'demoproj',
+        'NAME': 'prediction',
         'USER': 'DocV',
         'PASSWORD': 'DocV_password',
         'HOST': 'localhost',
@@ -126,3 +134,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+AUTH_USER_MODEL = "home.CustomUser"
+AUTHENTICATION_BACKENDS = ['home.EmailBackEnd.EmailBackEnd']
