@@ -31,6 +31,7 @@ lr.fit(data, target)
 cv_results = cross_validate(lr, data, target, cv=10)
 print(cv_results)
 
+
 import joblib
 
 joblib.dump(lr, "heart_model")

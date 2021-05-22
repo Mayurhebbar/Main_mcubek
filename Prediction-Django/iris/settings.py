@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'predict_heart',
+    'predict_kidney',
     'home',
 ]
 

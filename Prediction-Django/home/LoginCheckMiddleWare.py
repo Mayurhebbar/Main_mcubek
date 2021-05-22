@@ -28,6 +28,8 @@ class LoginCheckMiddleWare(MiddlewareMixin):
                     pass
                 elif modulename == "predict_heart.views":
                     pass
+                elif modulename == "predict_kidney.views":
+                    pass
                 else:
                     return HttpResponseRedirect(reverse("home:doctor_home"))
 

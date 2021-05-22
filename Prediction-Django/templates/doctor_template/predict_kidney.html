@@ -1,0 +1,212 @@
+{% extends "doctor_template/base_kidney.html" %}
+
+{% block main %}
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Prediction Results</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>Prediction Input:</h5>
+                <div>Patient ID: <span id="pi"></span></div>
+                <div>Patient Age: <span id="sw"></span></div>
+                <div>Patient Gender: <span id="pl"></span></div>
+                <div>BP: <span id="bpo"></span></div>
+                <div>AL: <span id="alo"></span></div>
+                <div>PCC: <span id="pcco"></span></div>
+                <div>BGR: <span id="bgro"></span></div>
+                <div>BU: <span id="buo"></span></div>
+                <div>SC: <span id="sco"></span></div>
+                <div>HEMO: <span id="hemoo"></span></div>
+                <div>PCV: <span id="pcvo"></span></div>
+                <div>HTN: <span id="htno"></span></div>
+                <div>DM: <span id="dmo"></span></div>
+                <div>APPET: <span id="appeto"></span></div>
+                <h5 class="pt-3">Disease Prediction:</h5>
+                <div id="prediction"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a class="btn btn-primary" href="results_kidney" role="button">View DB</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container pt-5">
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <h1>Kidney Disease Prediction</h1>
+            <form action="" id="post-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="Patient_ID">Patient ID</label>
+                    <input type="text" class="form-control" id="Patient_ID" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="Patient_Age">Patient Age</label>
+                    <input type="text" class="form-control" id="Patient_Age" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="Patient_Gender">Patient Gender</label>
+                    <select class="form-control" id="Patient_Gender" required>
+                            <option>0</option>
+                            <option>1</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="bp">BP</label>
+                    <input type="text" class="form-control" id="bp" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="sg">SG</label>
+                    <input type="text" class="form-control" id="sg" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="al">AL</label>
+                    <input type="text" class="form-control" id="al" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="su">SU</label>
+                    <input type="text" class="form-control" id="su" placeholder="" required autocomplete="off">
+                </div>
+                 <div class="form-group">
+                    <label for="rbc">RBC</label>
+                    <input type="text" class="form-control" id="rbc" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="pc">PC</label>
+                    <input type="text" class="form-control" id="pc" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="pcc">PCC</label>
+                    <input type="text" class="form-control" id="pcc" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="ba">BA</label>
+                    <input type="text" class="form-control" id="ba" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="bgr">BGR</label>
+                    <input type="text" class="form-control" id="bgr" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="bu">BU</label>
+                    <input type="text" class="form-control" id="bu" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="sc">SC</label>
+                    <input type="text" class="form-control" id="sc" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="sod">SOD</label>
+                    <input type="text" class="form-control" id="sod" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="pot">POT</label>
+                    <input type="text" class="form-control" id="pot" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="hemo">HEMO</label>
+                    <input type="text" class="form-control" id="hemo" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="pcv">PCV</label>
+                    <input type="text" class="form-control" id="pcv" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="wc">WC</label>
+                    <input type="text" class="form-control" id="wc" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="rc">RC</label>
+                    <input type="text" class="form-control" id="rc" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="htn">HTN</label>
+                    <input type="text" class="form-control" id="htn" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="dm">DM</label>
+                    <input type="text" class="form-control" id="dm" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="cad">CAD</label>
+                    <input type="text" class="form-control" id="cad" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="appet">APPET</label>
+                    <input type="text" class="form-control" id="appet" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="pe">PE</label>
+                    <input type="text" class="form-control" id="pe" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="ane">ANE</label>
+                    <input type="text" class="form-control" id="ane" placeholder="" required autocomplete="off">
+                </div>
+
+                <button type="submit" value="Submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).on('submit', '#post-form',function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:'{% url "predict_kidney:submit_prediction" %}',
+            data:{
+                Patient_ID:$('#Patient_ID').val(),
+                Patient_Age:$('#Patient_Age').val(),
+                Patient_Gender:$('#Patient_Gender').val(),
+                bp:$('#bp').val(),
+                al:$('#al').val(),
+                pcc:$('#pcc').val(),
+                bgr:$('#bgr').val(),
+                bu:$('#bu').val(),
+                sc:$('#sc').val(),
+                hemo:$('#hemo').val(),
+                pcv:$('#pcv').val(),
+                htn:$('#htn').val(),
+                dm:$('#dm').val(),
+                appet:$('#appet').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                action: 'post'
+            },
+            success:function(json) {
+                document.forms["post-form"].reset();
+                document.getElementById("prediction").innerHTML = json['result']
+                document.getElementById("pi").innerHTML = json['Patient_ID']
+                document.getElementById("sw").innerHTML = json['Patient_Age']
+                document.getElementById("pl").innerHTML = json['Patient_Gender']
+                document.getElementById("bpo").innerHTML = json['bp']
+                document.getElementById("alo").innerHTML = json['al']
+                document.getElementById("pcco").innerHTML = json['pcc']
+                document.getElementById("bgro").innerHTML = json['bgr']
+                document.getElementById("buo").innerHTML = json['bu']
+                document.getElementById("sco").innerHTML = json['sc']
+                document.getElementById("hemoo").innerHTML = json['hemo']
+                document.getElementById("pcvo").innerHTML = json['pcv']
+                document.getElementById("htno").innerHTML = json['htn']
+                document.getElementById("dmo").innerHTML = json['dm']
+                document.getElementById("appeto").innerHTML = json['appet']
+
+            },
+            error : function(xhr,errmsg,err) {
+
+            }
+        });
+    })
+</script>
+
+{% endblock %}
+
