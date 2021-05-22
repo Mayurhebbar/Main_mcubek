@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 ('Patient_ID', models.IntegerField()),
                 ('Patient_Age', models.IntegerField()),
                 ('Patient_Gender', models.IntegerField()),
-                ('Heart_Disease', models.CharField(max_length=30)),
+                ('Kidney_Disease', models.CharField(max_length=30)),
             ],
         ),
     ]
