@@ -23,6 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('predict_heart/', include('predict_heart.urls', namespace='predict_heart')),
     path('predict_kidney/', include('predict_kidney.urls', namespace='predict_kidney')),
+    
+    path('predict_diabetes/', include('predict_diabetes.urls', namespace='predict_diabetes')),
     path('', include('home.urls', namespace='home')),
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'predict_heart',
     'predict_kidney',
+    
+    'predict_diabetes',
     'home',
 ]
 

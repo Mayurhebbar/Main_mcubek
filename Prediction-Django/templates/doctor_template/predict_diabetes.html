@@ -1,0 +1,133 @@
+{% extends "doctor_template/base_diabetes.html" %}
+
+{% block main %}
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Prediction Results</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>Prediction Input:</h5>
+                <div>Patient ID: <span id="pi"></span></div>
+                <div>Patient Age: <span id="sw"></span></div>
+                <div>Patient Gender: <span id="pl"></span></div>
+                <div>Pregnancies: <span id="prg"></span></div>
+                <div>Glucose: <span id="glc"></span></div>
+                <div>BloodPressure: <span id="bp"></span></div>
+                <div>SkinThickness: <span id="sk"></span></div>
+                <div>Insulin: <span id="il"></span></div>
+                <div>BMI: <span id="bm"></span></div>
+                <div>DiabetesPedigreeFunction: <span id="dpf"></span></div>
+                <h5 class="pt-3">Disease Prediction:</h5>
+                <div id="prediction"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a class="btn btn-primary" href="result_diabetes" role="button">View DB</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container pt-5">
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <h1>Diabetes Disease Prediction</h1>
+            <form action="" id="post-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="Patient_ID">Patient ID</label>
+                    <input type="text" class="form-control" id="Patient_ID" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="Patient_Age">Patient Age</label>
+                    <input type="text" class="form-control" id="Patient_Age" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="Patient_Gender">Patient Gender</label>
+                    <select class="form-control" id="Patient_Gender" required>
+                            <option>0</option>
+                            <option>1</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pregnancies">Pregnancies</label>
+                    <input type="text" class="form-control" id="pregnancies" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="glucose">Glucose</label>
+                    <input type="text" class="form-control" id="glucose" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="bloodPressure">BloodPressure</label>
+                    <input type="text" class="form-control" id="bloodPressure" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="skinThickness">SkinThickness</label>
+                    <input type="text" class="form-control" id="skinThickness" placeholder="" required autocomplete="off">
+                </div>
+                 <div class="form-group">
+                    <label for="insulin">Insulin</label>
+                    <input type="text" class="form-control" id="insulin" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="bmi">BMI</label>
+                    <input type="text" class="form-control" id="bmi" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="diabetesPedigreeFunction">DiabetesPedigreeFunction</label>
+                    <input type="text" class="form-control" id="diabetesPedigreeFunction" placeholder="" required autocomplete="off">
+                </div>
+                <button type="submit" value="Submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).on('submit', '#post-form',function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:'{% url "predict_diabetes:submit_prediction" %}',
+            data:{
+                Patient_ID:$('#Patient_ID').val(),
+                Patient_Age:$('#Patient_Age').val(),
+                Patient_Gender:$('#Patient_Gender').val(),
+                pregnancies:$('#pregnancies').val(),
+                glucose:$('#glucose').val(),
+                bloodPressure:$('#bloodPressure').val(),
+                skinThickness:$('#skinThickness').val(),
+                insulin:$('#insulin').val(),
+                bmi:$('#bmi').val(),
+                diabetesPedigreeFunction:$('#diabetesPedigreeFunction').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                action: 'post'
+            },
+            success:function(json) {
+                document.forms["post-form"].reset();
+                document.getElementById("prediction").innerHTML = json['result']
+                document.getElementById("pi").innerHTML = json['Patient_ID']
+                document.getElementById("sw").innerHTML = json['Patient_Age']
+                document.getElementById("pl").innerHTML = json['Patient_Gender']
+                document.getElementById("prg").innerHTML = json['pregnancies']
+                document.getElementById("glc").innerHTML = json['glucose']
+                document.getElementById("bp").innerHTML = json['bloodPressure']
+                document.getElementById("sk").innerHTML = json['skinThickness']
+                document.getElementById("il").innerHTML = json['insulin']
+                document.getElementById("bm").innerHTML = json['bmi']
+                document.getElementById("dpf").innerHTML = json['diabetesPedigreeFunction']
+            },
+            error : function(xhr,errmsg,err) {
+
+            }
+        });
+    })
+</script>
+
+{% endblock %}
