@@ -1,0 +1,67 @@
+{% extends 'admin_template/base_template.html' %}
+{% block page_title %}
+Manage Doctor
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Doctor Details</h3>
+                <a href="/add_doctor" class="btn btn-primary float-right">Add Doctor</a>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Username</th>
+                      <th>Email</th>
+                      <th>Gender</th>
+                      <th>Date Of Birth</th>
+                      <th>Specialization</th>
+                      <th>Blood Group</th>
+                      <th>Profile Picture</th>
+                      <th>Phone Number</th>
+                      <th>Address</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for doctor in doctors %}
+                    <tr>
+                      <td>{{ doctor.doctor_num }}</td>
+                      <td>{{ doctor.admin.first_name }}</td>
+                      <td>{{ doctor.admin.last_name }}</td>
+                      <td>{{ doctor.admin.username }}</td>
+                      <td>{{ doctor.admin.email }}</td>
+                      <td>{{ doctor.gender }}</td>
+                      <td>{{ doctor.dob }}</td>
+                      <td>{{ doctor.specialization }}</td>
+                      <td>{{ doctor.blood_group }}</td>
+                      <td><img src="{{ doctor.profile_pic }}" style="width:100px;"/></td>
+                      <td>{{ doctor.ph_no }}</td>
+                      <td>{{ doctor.address }}</td>
+                      <td><a href="/edit_doctor/{{ doctor.admin.id }}" class="btn btn-success">Edit</a><a href="/delete_doctor/{{ doctor.admin.id }}" class="btn btn-danger">Delete</a></td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+
+      </div>
+        </div>
+
+      </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}

@@ -1,0 +1,69 @@
+{% load static %}
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+<div class="brand-link">
+      <div class="brand-text font-weight-light">Welcome {{ user.first_name }}!</div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="info">
+          <a href="{% url 'home:doctor_profile' %}" class="d-block">My Profile</a>
+        </div>
+      </div>
+
+
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            {% url 'home:doctor_home' as doctor_home %}
+            <a href="{{ doctor_home }}" class="nav-link {% if request.path == doctor_home %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Home
+              </p>
+            </a>
+          </li>
+            <li class="nav-item">
+            <a href="predict_heart" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Heart
+              </p>
+            </a>
+          </li>
+            <li class="nav-item">
+            <a href="predict_cancers" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Cancer
+              </p>
+            </a>
+          </li>
+            <li class="nav-item">
+            <a href="predict_kidney" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Kidney
+              </p>
+            </a>
+          </li>
+            <li class="nav-item">
+            <a href="predict_diabetes" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Diabetes
+              </p>
+            </a>
+          </li>
+
+
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
