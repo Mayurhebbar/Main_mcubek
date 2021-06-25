@@ -9,21 +9,31 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Patient ID</th>
-                    <th scope="col">Patient Age</th>
+                    <th scope="col">Patient Name</th>
                     <th scope="col">Patient Gender</th>
+                    <th scope="col">Patient Age</th>
                     <th scope="col">Prediction</th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for data in dataset %}
                     <tr>
-                    <th scope="row">{{ data.id }}</th>
                         <td>{{ data.Patient_ID }}</td>
+                        <td>{{ data.Patient_Name }}</td>
+                        {% if data.Patient_Gender == 0 %}
+                            <td>Female</td>
+                        {% else %}
+                            <td>Male</td>
+                        {% endif %}
                         <td>{{ data.Patient_Age }}</td>
-                        <td>{{ data.Patient_Gender }}</td>
-                        <td>{{ data.Heart_Disease }}</td>
+                        {% if data.Heart_Disease == "0" %}
+                            <td>No Risk  ( {{ data.Heart_Disease }} )</td>
+                        {% else %}
+                            <td>At Risk ( {{ data.Heart_Disease }} )</td>
+                        {% endif %}
+                        <td><a href="{% url 'predict_heart:predict_heart-pdf-view' data.Patient_ID %}"><button class="btn btn-primary">Download Report</button></a></td>
                     </tr>
                 {% endfor %}
 
