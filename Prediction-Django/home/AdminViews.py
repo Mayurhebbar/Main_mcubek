@@ -6,11 +6,26 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.core.files.storage import FileSystemStorage
 from home.models import CustomUser, Doctors
+from predict_heart.models import PredResults_heart
+from predict_cancers.models import PredResults_cancers
+from predict_kidney.models import PredResults_kidney
+from predict_diabetes.models import PredResults_diabetes
 from django.views.decorators.csrf import csrf_exempt
 
 
 def admin_home(request):
-    return render(request, "admin_template/admin_main_content.html")
+    doctor_count = Doctors.objects.all().count()
+    heart_patients = PredResults_heart.objects.all().count()
+    diabetes_patients = PredResults_diabetes.objects.all().count()
+    kidney_patients = PredResults_kidney.objects.all().count()
+    cancer_patients = PredResults_cancers.objects.all().count()
+    total_patients_count = heart_patients+diabetes_patients+kidney_patients+cancer_patients
+
+    return render(request, "admin_template/admin_main_content.html",
+                  {"doctor_count": doctor_count, "heart_patients": heart_patients,
+                   "diabetes_patients": diabetes_patients, "total_patients_count": total_patients_count,
+                   "kidney_patients": kidney_patients, "cancer_patients": cancer_patients,
+                   })
 
 
 def add_doctor(request):
