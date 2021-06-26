@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Disease Report</title>
+    <style type="text/css">
+            body {
+                margin: 20px;
+                font-weight: 200;
+                font-size: 14px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+        </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="header">
+<p class="title">Heart Disease Report</p>
+        <hr class="hrItem">
+    </div>
+</div>
+<div class="details">
+Patient ID : {{ predict_heart.Patient_ID }} <br>
+Patient Name : {{ predict_heart.Patient_Name }} <br>
+Patient Age : {{ predict_heart.Patient_Age }} <br>
+ {% if predict_heart.Patient_Gender == 0 %}
+    Patient Gender : Female
+ {% else %}
+     Patient Gender : Male
+ {% endif %}
+ <br>
+CP (Chest Pain) : {% if predict_heart.CP == 0 %}
+    Typical Angina
+    {% elif predict_heart.CP == 1 %}
+    Atypical Angina
+    {% elif predict_heart.CP == 2 %}
+    Non-Anginal Pain
+    {% else %}
+    Asymptomatic
+ {% endif %} <br>
+Trestbps (Resting Blood Pressure) : {{ predict_heart.Trestbps }} mm/Hg<br>
+Chol (Cholesterol) : {{ predict_heart.Cholesterol }} mg/dl<br>
+FBS > 120 mg/dl (Fasting Blood Sugar) :  {% if predict_heart.FBS == 0 %}
+    False
+    {% else %}
+    True
+    {% endif %} <br>
+Restecg (Resting Electrocardiographic Results) : {% if predict_heart.Restecg == 0 %}
+    Normal
+    {% elif predict_heart.Restecg == 1 %}
+    Having ST-T Wave Abnormality
+    {% else %}
+     Hypertrophy
+ {% endif %} <br>
+Thalach (Maximum Heart Rate Achieved) : {{ predict_heart.Thalach }} <br>
+Exang (Exercise Induced Angina) : {% if predict_heart.Exang == 0 %}
+    No
+    {% else %}
+    Yes
+    {% endif %} <br>
+Oldpeak (Depression Level) : {{ predict_heart.Oldpeak }} <br>
+Slope (Condition During Peak Exercise) : {% if predict_heart.Slope == 0 %}
+    Upsloping
+    {% elif predict_heart.Slope == 1 %}
+    Flat
+    {% else %}
+    Downsloping
+ {% endif %} <br>
+CA (Result of Fluoroscopy) - The Number of Major Vessels Coloured by Fluoroscopy : {{ predict_heart.CA | floatformat }} <br>
+Thal (Defect Type from Thallium Test) : {% if predict_heart.Thal == 0 %}
+    Normal
+    {% elif predict_heart.Thal == 1 %}
+    Fixed Defect
+    {% else %}
+    Reversable Defect
+ {% endif %} <br>
+<br>
+Final Prediction :  {% if predict_heart.Heart_Disease == "0" %}
+                            No Risk
+                        {% else %}
+                            At Risk
+                        {% endif %}
+</div>
+</body>
+</html>
