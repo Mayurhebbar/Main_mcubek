@@ -6,8 +6,161 @@ Home
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+          <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{ doctor_count }}</h3>
 
+                <p>Total Doctors</p>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{ heart_patients }}</h3>
+
+                <p>Total Heart Patients</p>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{ diabetes_patients }}</h3>
+
+                <p>Total Diabetes Patients</p>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{ kidney_patients }}</h3>
+
+                <p>Total Kidney Patients</p>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+            <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-gradient-dark">
+              <div class="inner">
+                <h3>{{ cancer_patients }}</h3>
+
+                <p>Total Cancer Patients</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </section>
+
+              <div class="row">
+              <div class="col-lg-6">
+                <div class="card card-danger">
+                  <div class="card-header">
+                    <h3 class="card-title">Doctors and Patients Chart</h3>
+
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+                <div class="col-lg-6">
+                <div class="card card-dark">
+                  <div class="card-header">
+                    <h3 class="card-title">Patients Chart</h3>
+
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="pieChart1" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+              </div>
+
+        </section>
     <!-- /.content -->
 {% endblock main_content %}
+{% block custom_js %}
+<script>
+    $(document).ready(function(){
+
+            var pieData        = {
+                  labels: [
+                      'Doctors',
+                      'Patients'
+                  ],
+                  datasets: [
+                    {
+                      data: [{{ doctor_count }},{{ total_patients_count }}],
+                      backgroundColor : ['#f56954', '#00a65a'],
+                    }
+                  ]
+             };
+
+            var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+            var pieOptions     = {
+              maintainAspectRatio : false,
+              responsive : true,
+            }
+            //Create pie or douhnut chart
+            // You can switch between pie and douhnut using the method below.
+            var pieChart = new Chart(pieChartCanvas, {
+              type: 'pie',
+              data: pieData,
+              options: pieOptions
+            });
+
+                        var pieData1        = {
+                  labels: [
+                      'Heart Patients',
+                      'Kidney Patients',
+                      'Diabetes Patients',
+                      'Cancer Patients',
+                  ],
+                  datasets: [
+                    {
+                      data: [{{ heart_patients }},{{ kidney_patients }},{{ diabetes_patients }},{{ cancer_patients }}],
+                      backgroundColor : ['#f5e554', '#00a65a','#aa00ff', '#ff3d00'],
+                    }
+                  ]
+             };
+
+            var pieChartCanvas1 = $('#pieChart1').get(0).getContext('2d')
+            var pieOptions1     = {
+              maintainAspectRatio : false,
+              responsive : true,
+            }
+            //Create pie or douhnut chart
+            // You can switch between pie and douhnut using the method below.
+            var pieChart1 = new Chart(pieChartCanvas1, {
+              type: 'pie',
+              data: pieData1,
+              options: pieOptions1
+            });
+    });
+</script>
+{% endblock custom_js %}
