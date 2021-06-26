@@ -33,7 +33,7 @@ def add_doctor_save(request):
         address = request.POST.get("address")
         gender = request.POST.get("gender")
         ph_no = request.POST.get("ph_no")
-
+        qualification = request.POST.get("qualification")
         profile_pic = request.FILES['profile_pic']
         fs = FileSystemStorage()
         filename = fs.save(profile_pic.name, profile_pic)
@@ -49,6 +49,7 @@ def add_doctor_save(request):
             user.doctors.specialization = specialization
             user.doctors.blood_group = blood_group
             user.doctors.doctor_num = doctor_num
+            user.doctors.qualification = qualification
             user.doctors.profile_pic = profile_pic_url
             user.save()
             messages.success(request, "Successfully Added Doctor")
@@ -82,6 +83,7 @@ def edit_doctor_save(request):
         blood_group = request.POST.get("blood_group")
         address = request.POST.get("address")
         gender = request.POST.get("gender")
+        qualification = request.POST.get("qualification")
         ph_no = request.POST.get("ph_no")
         doctor_num = request.POST.get("doctor_num")
 
@@ -107,6 +109,7 @@ def edit_doctor_save(request):
             doctor_model.specialization = specialization
             doctor_model.blood_group = blood_group
             doctor_model.doctor_num = doctor_num
+            doctor_model.qualification = qualification
             if profile_pic_url != None:
                 doctor_model.profile_pic = profile_pic_url
             doctor_model.gender = gender
