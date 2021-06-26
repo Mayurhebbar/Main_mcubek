@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class PredResults(models.Model):
+class PredResults_heart(models.Model):
 
     Patient_ID = models.IntegerField()
     Patient_Age = models.IntegerField()

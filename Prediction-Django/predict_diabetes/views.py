@@ -2,7 +2,7 @@ import joblib
 from django.shortcuts import render
 from django.http import JsonResponse
 import pandas as pd
-from .models import PredResults
+from .models import PredResults_diabetes
 from sklearn.preprocessing import StandardScaler
 
 
@@ -41,7 +41,7 @@ def predict_chances_diabetes(request):
             disease = "Yes"
         '''
 
-        PredResults.objects.create(Patient_ID=Patient_ID, Patient_Age=Patient_Age, Patient_Gender=Patient_Gender,
+        PredResults_diabetes.objects.create(Patient_ID=Patient_ID, Patient_Age=Patient_Age, Patient_Gender=Patient_Gender,
                                    Diabetes_Disease=diabetes_Disease)
         '''
         if Patient_Gender == 0:
@@ -59,6 +59,6 @@ def predict_chances_diabetes(request):
 
 def view_results_diabetes(request):
     # Submit prediction and show all
-    data = {"dataset": PredResults.objects.all()}
+    data = {"dataset": PredResults_diabetes.objects.all()}
 
     return render(request, "doctor_template/result_diabetes.html", data)

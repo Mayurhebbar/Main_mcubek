@@ -2,7 +2,7 @@ import joblib
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 import pandas as pd
-from .models import PredResults
+from .models import PredResults_heart
 from home.models import CustomUser, Doctors
 from sklearn.preprocessing import StandardScaler
 import numpy as np
@@ -13,7 +13,7 @@ from xhtml2pdf import pisa
 
 def predict_heart_render_pdf_view(request, *args, **kwargs):
     Patient_ID = kwargs.get('Patient_ID')
-    predict_heart = get_object_or_404(PredResults, Patient_ID=Patient_ID)
+    predict_heart = get_object_or_404(PredResults_heart, Patient_ID=Patient_ID)
     doctor_details = get_object_or_404(CustomUser, id=request.user.id)
     doctor_details_new = get_object_or_404(Doctors, admin_id=request.user.id)
     template_path = 'predict_heart/pdf2.html'
@@ -64,7 +64,7 @@ def predict_chances_heart(request):
         # Receive data from client
         Patient_Name = str(request.POST.get('Patient_Name'))
         Patient_ID = float(request.POST.get('Patient_ID'))
-        Patient_Age = str(request.POST.get('Patient_Age'))
+        Patient_Age = float(request.POST.get('Patient_Age'))
         Patient_Gender = float(request.POST.get('Patient_Gender'))
         CP = float(request.POST.get('cp'))
         Trestbps = float(request.POST.get('trestbps'))
@@ -107,14 +107,14 @@ def predict_chances_heart(request):
 
         # PredResults.objects.create(Patient_ID=Patient_ID, Patient_Age=Patient_Age, Patient_Gender=Patient_Gender,
         #                          Heart_Disease=Heart_Disease)
-        patients_lists = PredResults.objects.all()
+        patients_lists = PredResults_heart.objects.all()
         ID_list = []
         for patients_list in patients_lists:
             individual_list = patients_list.Patient_ID
             ID_list.append(individual_list)
 
         if Patient_ID not in ID_list:
-            user = PredResults(Patient_ID=Patient_ID, Patient_Name=Patient_Name, Patient_Age=Patient_Age,
+            user = PredResults_heart(Patient_ID=Patient_ID, Patient_Name=Patient_Name, Patient_Age=Patient_Age,
                                Patient_Gender=Patient_Gender,
                                Heart_Disease=Heart_Disease, CP=CP, Trestbps=Trestbps, FBS=FBS,
                                Cholesterol=Cholesterol, Restecg=Restecg,
@@ -122,7 +122,7 @@ def predict_chances_heart(request):
                                Thal=Thal, consulted_doctor=consulted_doctor)
             user.save()
         else:
-            update_list = PredResults.objects.get(Patient_ID=Patient_ID)
+            update_list = PredResults_heart.objects.get(Patient_ID=Patient_ID)
             update_list.Patient_Age = Patient_Age
             update_list.Heart_Disease = Heart_Disease
             update_list.CP = CP
@@ -194,5 +194,5 @@ def predict_chances_heart(request):
 
 def view_results_heart(request):
     # Submit prediction and show all
-    data = {"dataset": PredResults.objects.all()}
+    data = {"dataset": PredResults_heart.objects.all()}
     return render(request, "doctor_template/results_heart.html", data)

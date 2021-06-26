@@ -1,9 +1,33 @@
 import joblib
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 import pandas as pd
-from .models import PredResults
+from django.http import HttpResponse
+from .models import PredResults_kidney
 from sklearn.preprocessing import StandardScaler
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+
+
+def predict_kidney_render_pdf_view(request, *args, **kwargs):
+    Patient_ID = kwargs.get('Patient_ID')
+    predict_kidney = get_object_or_404(PredResults_kidney, Patient_ID=Patient_ID)
+    template_path = 'predict_kidney/pdf2.html'
+    context = {'predict_kidney': predict_kidney}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="Kidney Disease Report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+        html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
 
 
 def predict_kidney(request):
@@ -13,6 +37,7 @@ def predict_kidney(request):
 def predict_chances_kidney(request):
     if request.POST.get('action') == 'post':
         # Receive data from client
+        #Patient_Name = str(request.POST.get('Patient_Name'))
         Patient_ID = int(request.POST.get('Patient_ID'))
         Patient_Gender = int(request.POST.get('Patient_Gender'))
         Patient_Age = int(request.POST.get('Patient_Age'))
@@ -30,19 +55,18 @@ def predict_chances_kidney(request):
 
         '''
         The below fields are not necessary for prediction
-        
         SG = float(request.POST.get('sg'))
-        SU = int(request.POST.get('su'))
-        RBC = int(request.POST.get('rbc'))
-        PC = int(request.POST.get('pc'))
-        BA = int(request.POST.get('ba'))
-        SOD = int(request.POST.get('sod'))
+        SU = float(request.POST.get('su'))
+        RBC = float(request.POST.get('rbc'))
+        PC = float(request.POST.get('pc'))
+        BA = float(request.POST.get('ba'))
+        SOD = float(request.POST.get('sod'))
         POT = float(request.POST.get('pot'))
-        WC = int(request.POST.get('wc'))
+        WC = float(request.POST.get('wc'))
         RC = float(request.POST.get('rc'))
-        CAD = int(request.POST.get('cad'))
-        PE = int(request.POST.get('pe'))
-        ANE = int(request.POST.get('ane'))
+        CAD = float(request.POST.get('cad'))
+        PE = float(request.POST.get('pe'))
+        ANE = float(request.POST.get('ane'))
         '''
 
         # standardizing variables
@@ -76,7 +100,7 @@ def predict_chances_kidney(request):
             disease = "Yes"
         '''
 
-        PredResults.objects.create(Patient_ID=Patient_ID, Patient_Age=Patient_Age, Patient_Gender=Patient_Gender,
+        PredResults_kidney.objects.create(Patient_ID=Patient_ID, Patient_Age=Patient_Age, Patient_Gender=Patient_Gender,
                                    Kidney_Disease=int(Kidney_Disease))
         '''
         if Patient_Gender == 0:
@@ -114,5 +138,5 @@ def predict_chances_kidney(request):
 
 def view_results_kidney(request):
     # Submit prediction and show all
-    data = {"dataset": PredResults.objects.all()}
+    data = {"dataset": PredResults_kidney.objects.all()}
     return render(request, "doctor_template/results_kidney.html", data)
