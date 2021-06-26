@@ -21,6 +21,7 @@ from iris import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('predict_heart/', include('predict_heart.urls', namespace='predict_heart')),
     path('predict_kidney/', include('predict_kidney.urls', namespace='predict_kidney')),
     path('predict_cancers/', include('predict_cancers.urls', namespace='predict_cancers')),

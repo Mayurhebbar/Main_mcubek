@@ -19,6 +19,7 @@
                 </thead>
                 <tbody>
                 {% for data in dataset %}
+                    {% if data.consulted_doctor == request.user.id %}
                     <tr>
                         <td>{{ data.Patient_ID }}</td>
                         <td>{{ data.Patient_Name }}</td>
@@ -35,6 +36,7 @@
                         {% endif %}
                         <td><a href="{% url 'predict_heart:predict_heart-pdf-view' data.Patient_ID %}"><button class="btn btn-primary">Download Report</button></a></td>
                     </tr>
+                    {% endif %}
                 {% endfor %}
 
                 </tbody>

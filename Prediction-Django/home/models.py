@@ -26,6 +26,7 @@ class Doctors(models.Model):
     doctor_num = models.CharField(max_length=50)
     dob = models.DateField()
     blood_group = models.CharField(max_length=10)
+    qualification = models.CharField(max_length=50)
     specialization = models.CharField(max_length=50)
     gender = models.CharField(max_length=255)
     profile_pic = models.FileField()
@@ -44,7 +45,7 @@ def create_user_profile(sender, instance, created, **kwargs):
             Admin.objects.create(admin=instance)
         if instance.user_type == 2:
             Doctors.objects.create(admin=instance, address="", profile_pic="", gender="", ph_no="",
-                                   dob="2000-01-01", specialization="", blood_group="", doctor_num="")
+                                   dob="2000-01-01", specialization="", blood_group="", doctor_num="", qualification="")
 
 
 @receiver(post_save, sender=CustomUser)

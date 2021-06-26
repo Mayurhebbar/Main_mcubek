@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 import pandas as pd
 from .models import PredResults
+from home.models import CustomUser, Doctors
 from sklearn.preprocessing import StandardScaler
 import numpy as np
 from django.http import HttpResponse
@@ -13,8 +14,10 @@ from xhtml2pdf import pisa
 def predict_heart_render_pdf_view(request, *args, **kwargs):
     Patient_ID = kwargs.get('Patient_ID')
     predict_heart = get_object_or_404(PredResults, Patient_ID=Patient_ID)
+    doctor_details = get_object_or_404(CustomUser, id=request.user.id)
+    doctor_details_new = get_object_or_404(Doctors, admin_id=request.user.id)
     template_path = 'predict_heart/pdf2.html'
-    context = {'predict_heart': predict_heart}
+    context = {'predict_heart': predict_heart, 'doctor_details': doctor_details, 'doctor_details_new': doctor_details_new}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="Heart Disease Report.pdf"'
@@ -74,6 +77,7 @@ def predict_chances_heart(request):
         Slope = float(request.POST.get('slope'))
         CA = float(request.POST.get('ca'))
         Thal = float(request.POST.get('thal'))
+        consulted_doctor = request.user.id
 
         # standardizing variables
         sc_test = joblib.load("Heart_Standard_Scalar")
@@ -115,7 +119,7 @@ def predict_chances_heart(request):
                                Heart_Disease=Heart_Disease, CP=CP, Trestbps=Trestbps, FBS=FBS,
                                Cholesterol=Cholesterol, Restecg=Restecg,
                                Thalach=Thalach, Exang=Exang, Oldpeak=Oldpeak, Slope=Slope, CA=CA,
-                               Thal=Thal)
+                               Thal=Thal, consulted_doctor=consulted_doctor)
             user.save()
         else:
             update_list = PredResults.objects.get(Patient_ID=Patient_ID)
@@ -132,6 +136,7 @@ def predict_chances_heart(request):
             update_list.Slope = Slope
             update_list.CA = CA
             update_list.Thal = Thal
+            update_list.consulted_doctor = consulted_doctor
             update_list.save()
 
         if Patient_Gender == 0:
