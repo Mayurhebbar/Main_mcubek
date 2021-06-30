@@ -6,7 +6,7 @@ create user 'DocV'@'localhost' identified by 'DocV_password';
 
 grant all privileges on *.* to 'DocV'@'localhost';
 
-3. Delete all the migration and pycache files (If already present)
+3. Delete all the migration and pycache files (If already present). Drop the tables too.
 
 4. Make migrations for all the apps
 
@@ -20,6 +20,10 @@ python manage.py makemigrations appname
 
 python manage.py collectstatic
 
-7. Run the server
+7. Then create a superuser
+
+python manage.py createsuperuser
+
+8. Run the server
 
 python manage.py runserver
