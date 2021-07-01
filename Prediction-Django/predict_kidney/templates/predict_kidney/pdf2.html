@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Disease Report</title>
+    <style type="text/css">
+            body {
+                margin: 20px;
+                font-weight: 200;
+                font-size: 14px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+        </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="header">
+<p class="title">Kidney Disease Report</p>
+        <hr class="hrItem">
+    </div>
+    Treated By: {{ doctor_details.first_name }} {{ doctor_details.last_name}}, {{ doctor_details_new.qualification }} ( {{ doctor_details_new.specialization }} Specialization ) <br>
+    Date : {{ predict_kidney.updated_at | date:'d-m-Y' }}
+</div>
+<div class="details">
+Patient ID : {{ predict_kidney.Patient_ID }} <br>
+Patient Name : {{ predict_kidney.Patient_Name }} <br>
+Patient Age : {{ predict_kidney.Patient_Age }} <br>
+ {% if predict_kidney.Patient_Gender == 0 %}
+    Patient Gender : Female
+ {% else %}
+     Patient Gender : Male
+ {% endif %}
+ <br>
+Blood Pressure (Normal:Below 120, Eleveted:120-129, Hypertension:120 and above) : {{ predict_kidney.BP }} mm/Hg <br>
+Specific Gravity (Normal:1.002-1.030) : {{ predict_kidney.SG }} <br>
+Albumin : {{ predict_kidney.AL }} <br>
+Sugar : {{ predict_kidney.SU }} <br>
+{% if predict_kidney.RBC == 0 %}
+    Red Blood Cells : Abnormal
+{% else %}
+    Red Blood Cells : Normal
+{% endif %}
+<br>
+{% if predict_kidney.PC == 0 %}
+    Pus Cell : Abnormal
+{% else %}
+    Pus Cell : Normal
+{% endif %}   
+<br>
+{% if predict_kidney.PCC == 0 %}
+    Pus Cell Clumps : Not Present
+{% else %}
+    Pus Cell Clumps : Present
+{% endif %}
+<br>
+{% if predict_kidney.BA == 0 %}
+    Bacteria : Not Present
+{% else %}
+    Bacteria : Present
+{% endif %}
+<br>
+Blood Glucose Random : {{ predict_kidney.BGR }} mgs/dl <br>
+Blood Urea : {{ predict_kidney.BU }} mgs/dl <br>
+Serum Creatinine : {{ predict_kidney.SC }} mgs/dl <br>
+Sodium : {{ predict_kidney.SOD }} mEq/L <br>
+Potassium : {{ predict_kidney.POT }} mEq/L <br>
+Hemoglobin : {{ predict_kidney.HEMO }} gms <br>
+Packed Cell Volume : {{ predict_kidney.PCV }} <br>
+White Blood Cell Count : {{ predict_kidney.WC }} cells/cumm <br>
+Red Blood Cell Count : {{ predict_kidney.RC }} millions/cmm <br>
+{% if predict_kidney.HTN == 0 %}
+    Hypertension : No
+{% else %}
+    Hypertension : Yes
+{% endif %}
+<br>
+{% if predict_kidney.DM == 0 %}
+    Diabetes Mellitus : No
+{% else %}
+    Diabetes Mellitus : Yes
+{% endif %}
+<br>
+{% if predict_kidney.CAD == 0 %} 
+    Coronary Artery Disease : No
+{% else %}
+    Coronary Artery Disease : Yes
+{% endif %}
+<br>
+{% if predict_kidney.APPET == 0 %}
+    Appetite : Poor
+{% else %}
+    Appetite : Good
+{% endif %}
+<br>
+{% if predict_kidney.PE == 0 %}
+    Pedal Edema : No
+{% else %}
+    Pedal Edema : Yes
+{% endif %}
+<br>
+{% if predict_kidney.ANE == 0 %}
+    Anemia : No
+{% else %}
+    Anemia : Yes
+{% endif %}
+<br>
+<br>
+Final Prediction :  {% if predict_kidney.Kidney_Disease == '0.0' %}
+                            No Risk of Chronic Kidney Disease 
+                    {% else %}
+                            At Risk of Chronic Kidney Disease
+                    {% endif %}
+</div>
+</body>
+</html>

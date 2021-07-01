@@ -7,7 +7,7 @@ class PredResults_kidney(models.Model):
     Patient_Age = models.IntegerField()
     Patient_Gender = models.IntegerField()
     Patient_Name = models.CharField(max_length=255)
-    '''
+    consulted_doctor = models.IntegerField()
     BP = models.IntegerField()
     AL = models.IntegerField()
     PCV = models.IntegerField()
@@ -31,8 +31,9 @@ class PredResults_kidney(models.Model):
     CAD = models.FloatField()
     PE = models.FloatField()
     ANE = models.FloatField()
-    '''
     Kidney_Disease = models.CharField(max_length=30)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.Kidney_Disease
