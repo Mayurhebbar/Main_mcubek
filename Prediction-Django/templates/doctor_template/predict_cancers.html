@@ -1,0 +1,297 @@
+{% extends "doctor_template/base_cancers.html" %}
+
+{% block main %}
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Prediction Results</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>Prediction Input:</h5>
+                <div>Patient ID: <span id="pi"></span></div>
+                <div>Patient Age: <span id="sw"></span></div>
+                <div>Patient Gender: <span id="pl"></span></div>
+                <div>RADIUS MEAN: <span id="radius_meano"></span></div>
+                <div>TEXTURE MEAN: <span id="texture_meano"></span></div>
+                <div>PERIMETER MEAN: <span id="perimeter_meano"></span></div>
+                <div>AREA MEAN: <span id="area_meano"></span></div>
+                <div>SMOOTHNESS MEAN: <span id="smoothness_meano"></span></div>
+                <div>COMPACTNESS MEAN: <span id="compactness_meano"></span></div>
+                <div>CONCAVITY MEAN: <span id="concavity_meano"></span></div>
+                <div>CONCAVE POINTS MEAN: <span id="concave_points_meano"></span></div>
+                <div>SYMMETRY MEAN: <span id="symmetry_meano"></span></div>
+                <div>FRACTAL DIMENSION MEAN: <span id="fractal_dimension_meano"></span></div>
+                <div>RADIUS SE: <span id="radius_seo"></span></div>
+                <div>TEXTURE SE: <span id="texture_seo"></span></div>
+                <div>PERIMETER SE: <span id="perimeter_seo"></span></div>
+                <div>AREA SE: <span id="area_seo"></span></div>
+                <div>SMOOTHNESS SE: <span id="smoothness_seo"></span></div>
+                <div>COMPACTNESS SE: <span id="compactness_seo"></span></div>
+                <div>CONCAVITY SE: <span id="concavity_seo"></span></div>
+                <div>CONCAVE POINTS SE: <span id="concave_points_seo"></span></div>
+                <div>SYMMETRY SE: <span id="symmetry_seo"></span></div>
+                <div>FRACTAL DIMENSION SE: <span id="fractal_dimension_seo"></span></div>
+                <div>RADIUS WORST: <span id="radius_worsto"></span></div>
+                <div>TEXTURE WORST: <span id="texture_worsto"></span></div>
+                <div>PERIMETER WORST: <span id="perimeter_worsto"></span></div>
+                <div>AREA WORST: <span id="area_worsto"></span></div>
+                <div>SMOOTHNESS WORST: <span id="smoothness_worsto"></span></div>
+                <div>COMPACTNESS WORST: <span id="compactness_worsto"></span></div>
+                <div>CONCAVITY WORST: <span id="concavity_worsto"></span></div>
+                <div>CONCAVE POINTS WORST: <span id="concave_points_worsto"></span></div>
+                <div>SYMMETRY WORST: <span id="symmetry_worsto"></span></div>
+                <div>FRACTAL DIMENSION WORST: <span id="fractal_dimension_worsto"></span></div>
+                <h5 class="pt-3">Disease Prediction:</h5>
+                <div id="prediction"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a class="btn btn-primary" href="results_cancers" role="button">View DB</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container pt-5">
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <h1>Cancer Disease Prediction</h1>
+            <form action="" id="post-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="Patient_ID">Patient ID</label>
+                    <input type="text" class="form-control" id="Patient_ID" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="Patient_Age">Patient Age</label>
+                    <input type="text" class="form-control" id="Patient_Age" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="Patient_Gender">Patient Gender</label>
+                    <select class="form-control" id="Patient_Gender" required>
+                            <option>0</option>
+                            <option>1</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="radius_mean">RADIUS MEAN</label>
+                    <input type="text" class="form-control" id="radius_mean" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="texture_mean">TEXTURE MEAN</label>
+                    <input type="text" class="form-control" id="texture_mean" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="perimeter_mean">PERIMETER MEAN</label>
+                    <input type="text" class="form-control" id="perimeter_mean" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="area_mean">AREA MEAN</label>
+                    <input type="text" class="form-control" id="area_mean" placeholder="" required autocomplete="off">
+                </div>
+                 <div class="form-group">
+                    <label for="smoothness_mean">SMOOTHNESS MEAN</label>
+                    <input type="text" class="form-control" id="smoothness_mean" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="compactness_mean">COMPACTNESS MEAN</label>
+                    <input type="text" class="form-control" id="compactness_mean" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="concavity_mean">CONCAVITY MEAN</label>
+                    <input type="text" class="form-control" id="concavity_mean" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="concave_points_mean">CONCAVE POINTS MEAN</label>
+                    <input type="text" class="form-control" id="concave_points_mean" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="symmetry_mean">SYMMETRY MEAN</label>
+                    <input type="text" class="form-control" id="symmetry_mean" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="fractal_dimension_mean">FRACTAL DIMENSION MEAN</label>
+                    <input type="text" class="form-control" id="fractal_dimension_mean" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="radius_se">RADIUS SE</label>
+                    <input type="text" class="form-control" id="radius_se" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="texture_se">TEXTURE SE</label>
+                    <input type="text" class="form-control" id="texture_se" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="perimeter_se">PERIMETER SE</label>
+                    <input type="text" class="form-control" id="perimeter_se" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="area_se">AREA SE</label>
+                    <input type="text" class="form-control" id="area_se" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="smoothness_se">SMOOTHNESS SE</label>
+                    <input type="text" class="form-control" id="smoothness_se" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="compactness_se">COMPACTNESS SE</label>
+                    <input type="text" class="form-control" id="compactness_se" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="concavity_se">CONCAVITY SE</label>
+                    <input type="text" class="form-control" id="concavity_se" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="concave_points_se">CONCAVE POINTS SE</label>
+                    <input type="text" class="form-control" id="concave_points_se" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="symmetry_se">SYMMETRY SE</label>
+                    <input type="text" class="form-control" id="symmetry_se" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="fractal_dimension_se">FRACTAL DIMENSION SE</label>
+                    <input type="text" class="form-control" id="fractal_dimension_se" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="radius_worst">RADIUS WORST</label>
+                    <input type="text" class="form-control" id="radius_worst" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="texture_worst">TEXTURE WORST</label>
+                    <input type="text" class="form-control" id="texture_worst" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="perimeter_worst">PERIMETER WORST</label>
+                    <input type="text" class="form-control" id="perimeter_worst" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="area_worst">AREA WORST</label>
+                    <input type="text" class="form-control" id="area_worst" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="smoothness_worst">SMOOTHNESS WORST</label>
+                    <input type="text" class="form-control" id="smoothness_worst" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="compactness_worst">COMPACTNESS WORST</label>
+                    <input type="text" class="form-control" id="compactness_worst" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="concavity_worst">CONCAVITY WORST</label>
+                    <input type="text" class="form-control" id="concavity_worst" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="concave_points_worst">CONCAVE POINTS WORST</label>
+                    <input type="text" class="form-control" id="concave_points_worst" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="symmetry_worst">SYMMETRY WORST</label>
+                    <input type="text" class="form-control" id="symmetry_worst" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="fractal_dimension_worst">FRACTAL DIMENSION WORST</label>
+                    <input type="text" class="form-control" id="fractal_dimension_worst" placeholder="" required autocomplete="off">
+                </div>
+
+                <button type="submit" value="Submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).on('submit', '#post-form',function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:'{% url "predict_cancers:submit_prediction" %}',
+            data:{
+                Patient_ID:$('#Patient_ID').val(),
+                Patient_Age:$('#Patient_Age').val(),
+                Patient_Gender:$('#Patient_Gender').val(),
+                radius_mean:$('#radius_mean').val(),
+                texture_mean:$('#texture_mean').val(),
+                perimeter_mean:$('#perimeter_mean').val(),
+                area_mean:$('#area_mean').val(),
+                smoothness_mean:$('#smoothness_mean').val(),
+                compactness_mean:$('#compactness_mean').val(),
+                concavity_mean:$('#concavity_mean').val(),
+                concave_points_mean:$('#concave_points_mean').val(),
+                symmetry_mean:$('#symmetry_mean').val(),
+                fractal_dimension_mean:$('#fractal_dimension_mean').val(),
+                radius_se:$('#radius_se').val(),
+                texture_se:$('#texture_se').val(),
+                perimeter_se:$('#perimeter_se').val(),
+                area_se:$('#area_se').val(),
+                smoothness_se:$('#smoothness_se').val(),
+                compactness_se:$('#compactness_se').val(),
+                concavity_se:$('#concavity_se').val(),
+                concave_points_se:$('#concave_points_se').val(),
+                symmetry_se:$('#symmetry_se').val(),
+                fractal_dimension_se:$('#fractal_dimension_se').val(),
+                radius_worst:$('#radius_worst').val(),
+                texture_worst:$('#texture_worst').val(),
+                perimeter_worst:$('#perimeter_worst').val(),
+                area_worst:$('#area_worst').val(),
+                smoothness_worst:$('#smoothness_worst').val(),
+                compactness_worst:$('#compactness_worst').val(),
+                concavity_worst:$('#concavity_worst').val(),
+                concave_points_worst:$('#concave_points_worst').val(),
+                symmetry_worst:$('#symmetry_worst').val(),
+                fractal_dimension_worst:$('#fractal_dimension_worst').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                action: 'post'
+            },
+            success:function(json) {
+                document.forms["post-form"].reset();
+                document.getElementById("prediction").innerHTML = json['result']
+                document.getElementById("pi").innerHTML = json['Patient_ID']
+                document.getElementById("sw").innerHTML = json['Patient_Age']
+                document.getElementById("pl").innerHTML = json['Patient_Gender']
+                document.getElementById("radius_meano").innerHTML = json['radius_mean']
+                document.getElementById("texture_meano").innerHTML = json['texture_mean']
+                document.getElementById("perimeter_meano").innerHTML = json['perimeter_mean']
+                document.getElementById("area_meano").innerHTML = json['area_mean']
+                document.getElementById("smoothness_meano").innerHTML = json['smoothness_mean']
+                document.getElementById("compactness_meano").innerHTML = json['compactness_mean']
+                document.getElementById("concavity_meano").innerHTML = json['concavity_mean']
+                document.getElementById("concave_points_meano").innerHTML = json['concave_points_mean']
+                document.getElementById("symmetry_meano").innerHTML = json['symmetry_mean']
+                document.getElementById("fractal_dimension_meano").innerHTML = json['fractal_dimension_mean']
+                document.getElementById("radius_seo").innerHTML = json['radius_se']
+                document.getElementById("texture_seo").innerHTML = json['texture_se']
+                document.getElementById("perimeter_seo").innerHTML = json['perimeter_se']
+                document.getElementById("area_seo").innerHTML = json['area_se']
+                document.getElementById("smoothness_seo").innerHTML = json['smoothness_se']
+                document.getElementById("compactness_seo").innerHTML = json['compactness_se']
+                document.getElementById("concavity_seo").innerHTML = json['concavity_se']
+                document.getElementById("concave_points_seo").innerHTML = json['concave_points_se']
+                document.getElementById("symmetry_seo").innerHTML = json['symmetry_se']
+                document.getElementById("fractal_dimension_seo").innerHTML = json['fractal_dimension_se']
+                document.getElementById("radius_worsto").innerHTML = json['radius_worst']
+                document.getElementById("texture_worsto").innerHTML = json['texture_worst']
+                document.getElementById("perimeter_worsto").innerHTML = json['perimeter_worst']
+                document.getElementById("area_worsto").innerHTML = json['area_worst']
+                document.getElementById("smoothness_worsto").innerHTML = json['smoothness_worst']
+                document.getElementById("compactness_worsto").innerHTML = json['compactness_worst']
+                document.getElementById("concavity_worsto").innerHTML = json['concavity_worst']
+                document.getElementById("concave_points_worsto").innerHTML = json['concave_points_worst']
+                document.getElementById("symmetry_worsto").innerHTML = json['symmetry_worst']
+                document.getElementById("fractal_dimension_worsto").innerHTML = json['fractal_dimension_worst']
+
+            },
+            error : function(xhr,errmsg,err) {
+
+            }
+        });
+    })
+</script>
+
+{% endblock %}
+

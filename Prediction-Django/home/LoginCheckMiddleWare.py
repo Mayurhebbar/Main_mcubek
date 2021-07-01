@@ -30,8 +30,10 @@ class LoginCheckMiddleWare(MiddlewareMixin):
                     pass
                 elif modulename == "predict_kidney.views":
                     pass
+                elif modulename == "predict_cancers.views":
+                    pass
 
-                
+
                 elif modulename == "predict_diabetes.views":
                     pass
                 else:
