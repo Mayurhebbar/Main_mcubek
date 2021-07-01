@@ -1,7 +1,8 @@
 {% extends "doctor_template/base_kidney.html" %}
-
+{% load static %}
 {% block main %}
 <!-- Modal -->
+<section class="content" style="background-color: darkgrey; height: 375vh;">
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -19,8 +20,8 @@
                 <div>Patient Gender: <span id="pl"></span></div>
                 <div>Blood Pressure (mm/Hg): <span id="bpo"></span></div>
                 <div>Specific Gravity: <span id="sgo"></span></div>
-                <div>Albumin: <span id="alo"></span></div>
-                <div>Sugar: <span id="suo"></span></div>
+                <div>Albumin Level: <span id="alo"></span></div>
+                <div>Sugar Level: <span id="suo"></span></div>
                 <div>Red Blood Cells: <span id="rbco"></span></div>
                 <div>Pus Cell: <span id="pco"></span></div>
                 <div>Pus Cell Clumps: <span id="pcco"></span></div>
@@ -84,11 +85,11 @@
                     <input type="text" class="form-control" id="sg" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="al">Albumin</label>
+                    <label for="al">Albumin Level</label>
                     <input type="text" class="form-control" id="al" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="su">Sugar</label>
+                    <label for="su">Sugar Level</label>
                     <input type="text" class="form-control" id="su" placeholder="" required autocomplete="off">
                 </div>
                  <div class="form-group">
@@ -173,6 +174,7 @@
         </div>
     </div>
 </div>
+</section>
 
 <script>
     $(document).on('submit', '#post-form',function(e){

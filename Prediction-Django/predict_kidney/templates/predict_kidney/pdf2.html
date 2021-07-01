@@ -58,10 +58,10 @@ Patient Age : {{ predict_kidney.Patient_Age }} <br>
      Patient Gender : Male
  {% endif %}
  <br>
-Blood Pressure (Normal:Below 120, Eleveted:120-129, Hypertension:120 and above) : {{ predict_kidney.BP }} mm/Hg <br>
+Blood Pressure (Normal:Below 120, Elevated:120-129, Hypertension:120 and above) : {{ predict_kidney.BP }} mm/Hg <br>
 Specific Gravity (Normal:1.002-1.030) : {{ predict_kidney.SG }} <br>
-Albumin : {{ predict_kidney.AL }} <br>
-Sugar : {{ predict_kidney.SU }} <br>
+Albumin Level : {{ predict_kidney.AL }} <br>
+Sugar Level : {{ predict_kidney.SU | floatformat }} <br>
 {% if predict_kidney.RBC == 0 %}
     Red Blood Cells : Abnormal
 {% else %}
@@ -93,7 +93,7 @@ Sodium : {{ predict_kidney.SOD }} mEq/L <br>
 Potassium : {{ predict_kidney.POT }} mEq/L <br>
 Hemoglobin : {{ predict_kidney.HEMO }} gms <br>
 Packed Cell Volume : {{ predict_kidney.PCV }} <br>
-White Blood Cell Count : {{ predict_kidney.WC }} cells/cumm <br>
+White Blood Cell Count : {{ predict_kidney.WC | floatformat }} cells/cumm <br>
 Red Blood Cell Count : {{ predict_kidney.RC }} millions/cmm <br>
 {% if predict_kidney.HTN == 0 %}
     Hypertension : No
@@ -132,10 +132,10 @@ Red Blood Cell Count : {{ predict_kidney.RC }} millions/cmm <br>
 {% endif %}
 <br>
 <br>
-Final Prediction :  {% if predict_kidney.Kidney_Disease == '0.0' %}
-                            No Risk of Chronic Kidney Disease 
+Final Prediction :  {% if predict_kidney.Kidney_Disease == '0' %}
+                    <b>No Risk</b>
                     {% else %}
-                            At Risk of Chronic Kidney Disease
+                    <b>At Risk</b>
                     {% endif %}
 </div>
 </body>

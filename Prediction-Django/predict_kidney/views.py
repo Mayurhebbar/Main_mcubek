@@ -16,7 +16,8 @@ def predict_kidney_render_pdf_view(request, *args, **kwargs):
     doctor_details = get_object_or_404(CustomUser, id=request.user.id)
     doctor_details_new = get_object_or_404(Doctors, admin_id=request.user.id)
     template_path = 'predict_kidney/pdf2.html'
-    context = {'predict_kidney': predict_kidney, 'doctor_details': doctor_details, 'doctor_details_new': doctor_details_new}
+    context = {'predict_kidney': predict_kidney, 'doctor_details': doctor_details,
+               'doctor_details_new': doctor_details_new}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="Kidney Disease Report.pdf"'
@@ -55,7 +56,7 @@ def predict_chances_kidney(request):
         HTN = float(request.POST.get('htn'))
         DM = float(request.POST.get('dm'))
         APPET = float(request.POST.get('appet'))
-        #The below fields are not necessary for prediction
+        # The below fields are not necessary for prediction
         SG = float(request.POST.get('sg'))
         SU = float(request.POST.get('su'))
         RBC = float(request.POST.get('rbc'))
@@ -71,18 +72,18 @@ def predict_chances_kidney(request):
         consulted_doctor = request.user.id
 
         # Unpickle model
-        #De serialize the model and predict
+        # De serialize the model and predict
 
         model = joblib.load("kidney_model")
         result = model.predict([[Patient_Age, BP, AL, PCC, BGR, BU,
                                  SC, HEMO, PCV, HTN, DM, APPET]])
 
-        Kidney_Disease = result[0]
+        Kidney_Disease = int(result[0])
 
         if Kidney_Disease == 0:
-            disease = "No Risk of Chronic Kidney Disease"
+            disease = "No Risk"
         else:
-            disease = "At Risk of Chronic Kidney Disease"
+            disease = "At Risk"
 
         patients_lists = PredResults_kidney.objects.all()
         ID_list = []
@@ -92,12 +93,13 @@ def predict_chances_kidney(request):
 
         if Patient_ID not in ID_list:
             user = PredResults_kidney(Patient_ID=Patient_ID, Patient_Name=Patient_Name, Patient_Age=Patient_Age,
-                               Patient_Gender=Patient_Gender,
-                               Kidney_Disease=Kidney_Disease, BP=BP, AL=AL, PCV=PCV,
-                               PCC=PCC, BGR=BGR,
-                               BU=BU, SC=SC, HEMO=HEMO, HTN=HTN, DM=DM,
-                               APPET=APPET, SG=SG, SU=SU, RBC=RBC, PC=PC, BA=BA, SOD=SOD, POT=POT, WC=WC, RC=RC, CAD=CAD,
-                               PE=PE, ANE=ANE, consulted_doctor=consulted_doctor)
+                                      Patient_Gender=Patient_Gender,
+                                      Kidney_Disease=Kidney_Disease, BP=BP, AL=AL, PCV=PCV,
+                                      PCC=PCC, BGR=BGR,
+                                      BU=BU, SC=SC, HEMO=HEMO, HTN=HTN, DM=DM,
+                                      APPET=APPET, SG=SG, SU=SU, RBC=RBC, PC=PC, BA=BA, SOD=SOD, POT=POT, WC=WC, RC=RC,
+                                      CAD=CAD,
+                                      PE=PE, ANE=ANE, consulted_doctor=consulted_doctor)
             user.save()
         else:
             update_list = PredResults_kidney.objects.get(Patient_ID=Patient_ID)
@@ -136,10 +138,25 @@ def predict_chances_kidney(request):
         else:
             gender = "Male"
 
+        if RBC == 0:
+            rbc_value = "Abnormal"
+        else:
+            rbc_value = "Normal"
+
+        if PC == 0:
+            pc_value = "Abnormal"
+        else:
+            pc_value = "Normal"
+
         if PCC == 0:
             pcc = "Not Present"
         else:
             pcc = "Present"
+
+        if BA == 0:
+            ba_value = "Not Present"
+        else:
+            ba_value = "Present"
 
         if HTN == 0:
             htn = "No"
@@ -151,18 +168,33 @@ def predict_chances_kidney(request):
         else:
             dm = "Yes"
 
+        if CAD == 0:
+            cad_value = "No"
+        else:
+            cad_value = "Yes"
+
+        if PE == 0:
+            pe_value = "No"
+        else:
+            pe_value = "Yes"
+
+        if ANE == 0:
+            ane_value = "No"
+        else:
+            ane_value = "Yes"
+
         if APPET == 0:
             appet = "Poor"
         else:
             appet = "Good"
 
-
-        return JsonResponse({'result': disease, 'Patient_ID': Patient_ID, 'Patient_Name':Patient_Name, 'Patient_Age': Patient_Age,
-                             'Patient_Gender': Patient_Gender, 'bp': BP, 'al': AL,
-                             'pcc': PCC, 'bgr': BGR, 'bu': BU, 'sc': SC, 'hemo': HEMO, 'pcv': PCV, 'htn': HTN, 'dm': DM,
-                             'appet': APPET,'sg':SG, 'su':SU, 'rbc':RBC, 'pc':PC, 'ba':BA, 'sod':SOD, 'pot':POT, 'wc':WC,
-                             'rc':RC, 'cada':CAD, 'pe':PE, 'ane':ANE},
-                            safe=False)
+        return JsonResponse(
+            {'result': disease, 'Patient_ID': Patient_ID, 'Patient_Name': Patient_Name, 'Patient_Age': Patient_Age,
+             'Patient_Gender': gender, 'bp': BP, 'al': AL,
+             'pcc': pcc, 'bgr': BGR, 'bu': BU, 'sc': SC, 'hemo': HEMO, 'pcv': PCV, 'htn': htn, 'dm': dm,
+             'appet': appet, 'sg': SG, 'su': SU, 'rbc': rbc_value, 'pc': pc_value, 'ba': ba_value, 'sod': SOD, 'pot': POT, 'wc': WC,
+             'rc': RC, 'cada': cad_value, 'pe': pe_value, 'ane': ane_value},
+            safe=False)
 
 
 def view_results_kidney(request):
