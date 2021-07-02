@@ -5,6 +5,104 @@ Home
 {% block main_content %}
     <!-- Main content -->
     <section class="content">
+    <div class="container-fluid">
+          <div class="row">
+              {% if doctor_details.specialization == 'Heart' and doctor_details.admin_id == request.user.id %}
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+              <div class="inner">
+                <h3>{{ heart_patients }}</h3>
+
+                <p>Total Heart Patients</p>
+              </div>
+            </div>
+          </div>
+           <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-gradient-gray-dark">
+              <div class="inner">
+                <h3>{{ heart_patients_under_me }}</h3>
+
+                <p>My Patients</p>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+          <div class="row">
+              {% if doctor_details.specialization == 'Kidney' and doctor_details.admin_id == request.user.id %}
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+              <div class="inner">
+                <h3>{{ kidney_patients }}</h3>
+
+                <p>Total Kidney Patients</p>
+              </div>
+            </div>
+          </div>
+           <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-gradient-gray-dark">
+              <div class="inner">
+                <h3>{{ kidney_patients_under_me }}</h3>
+
+                <p>My Patients</p>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+          <div class="row">
+              {% if doctor_details.specialization == 'Diabetes' and doctor_details.admin_id == request.user.id %}
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+              <div class="inner">
+                <h3>{{ diabetes_patients }}</h3>
+
+                <p>Total Diabetes Patients</p>
+              </div>
+            </div>
+          </div>
+           <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-gradient-gray-dark">
+              <div class="inner">
+                <h3>{{ diabetes_patients_under_me }}</h3>
+
+                <p>My Patients</p>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+          <div class="row">
+              {% if doctor_details.specialization == 'Cancer' and doctor_details.admin_id == request.user.id %}
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+              <div class="inner">
+                <h3>{{ cancer_patients }}</h3>
+
+                <p>Total Cancer Patients</p>
+              </div>
+            </div>
+          </div>
+           <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-gradient-gray-dark">
+              <div class="inner">
+                <h3>{{ cancer_patients_under_me }}</h3>
+
+                <p>My Patients</p>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
       <div class="container-fluid">
           <div class="row">
               <div class="col-lg-6">
