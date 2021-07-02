@@ -34,7 +34,8 @@ def doctor_home(request):
 def doctor_profile(request):
     user = CustomUser.objects.get(id=request.user.id)
     doctor = Doctors.objects.get(admin=user)
-    return render(request, "doctor_template/doctor_profile.html", {"user": user, "doctor": doctor})
+    doctor_details = Doctors.objects.get(admin_id=request.user.id)
+    return render(request, "doctor_template/doctor_profile.html", {"user": user, "doctor": doctor, "doctor_details": doctor_details})
 
 
 def doctor_profile_save(request):
