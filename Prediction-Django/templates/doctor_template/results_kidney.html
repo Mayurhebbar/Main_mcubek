@@ -1,7 +1,7 @@
 {% extends "doctor_template/base_kidney.html" %}
 {% load static %}
 {% block main %}
-    <section class="content" style="background-color: darkgrey; height: 225vh;">
+    <section class="content" style="background-color: lightskyblue; height: 225vh;">
     <div class="container pt-5">
         <div class="row">
 
@@ -35,7 +35,7 @@
                         {% else %}
                             <td>At Risk ( {{ data.Kidney_Disease }} )</td>
                         {% endif %}
-                        <td><a href="{% url 'predict_kidney:predict_kidney-pdf-view' data.Patient_ID %}"><button class="btn btn-primary">Download Report</button></a></td>
+                        <td><a href="{% url 'predict_kidney:predict_kidney-pdf-view' data.Patient_ID %}"><button class="btn btn-dark">Download Report</button></a></td>
                     </tr>
                     {% endif %}
                 {% endfor %}
