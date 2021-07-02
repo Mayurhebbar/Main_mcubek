@@ -6,8 +6,304 @@ Home
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+          <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{ doctor_count }}</h3>
 
+                <p>Total Doctors</p>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{ heart_patients }}</h3>
+
+                <p>Total Heart Patients</p>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{ diabetes_patients }}</h3>
+
+                <p>Total Diabetes Patients</p>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{ kidney_patients }}</h3>
+
+                <p>Total Kidney Patients</p>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+            <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-gradient-dark">
+              <div class="inner">
+                <h3>{{ cancer_patients }}</h3>
+
+                <p>Total Cancer Patients</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </section>
+
+              <div class="row">
+              <div class="col-lg-6">
+                <div class="card card-danger">
+                  <div class="card-header">
+                    <h3 class="card-title">Doctors and Patients Chart</h3>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+                <div class="col-lg-6">
+                <div class="card card-yellow">
+                  <div class="card-header">
+                    <h3 class="card-title">Patients Chart</h3>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="pieChart1" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+                <div class="col-lg-6">
+                <div class="card card-dark">
+                  <div class="card-header">
+                    <h3 class="card-title">Doctors Chart</h3>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="pieChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+                 <div class="col-lg-6">
+                  <div class="card card-green">
+                  <div class="card-header">
+                    <h3 class="card-title">Accuracy Chart</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart">
+                      <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+              </div>
+
+        </section>
     <!-- /.content -->
 {% endblock main_content %}
+{% block custom_js %}
+<script>
+    $(document).ready(function(){
+
+            var pieData        = {
+                  labels: [
+                      'Doctors',
+                      'Patients'
+                  ],
+                  datasets: [
+                    {
+                      data: [{{ doctor_count }},{{ total_patients_count }}],
+                      backgroundColor : ['#f56954', '#00a65a'],
+                    }
+                  ]
+             };
+
+            var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+            var pieOptions     = {
+              maintainAspectRatio : false,
+              responsive : true,
+            }
+            //Create pie or douhnut chart
+            // You can switch between pie and douhnut using the method below.
+            var pieChart = new Chart(pieChartCanvas, {
+              type: 'pie',
+              data: pieData,
+              options: pieOptions
+            });
+
+                  var pieData1        = {
+                  labels: [
+                      'Heart Patients',
+                      'Kidney Patients',
+                      'Diabetes Patients',
+                      'Cancer Patients',
+                  ],
+                  datasets: [
+                    {
+                      data: [{{ heart_patients }},{{ kidney_patients }},{{ diabetes_patients }},{{ cancer_patients }}],
+                      backgroundColor : ['#f5e554', '#00a65a','#aa00ff', '#ff3d00'],
+                    }
+                  ]
+             };
+
+            var pieChartCanvas1 = $('#pieChart1').get(0).getContext('2d')
+            var pieOptions1     = {
+              maintainAspectRatio : false,
+              responsive : true,
+            }
+            //Create pie or douhnut chart
+            // You can switch between pie and douhnut using the method below.
+            var pieChart1 = new Chart(pieChartCanvas1, {
+              type: 'pie',
+              data: pieData1,
+              options: pieOptions1
+            });
+
+            var pieData2       = {
+                  labels: [
+                      'Heart Specialists',
+                      'Kidney Specialists',
+                      'Diabetes Specialists',
+                      'Cancer Specialists',
+                  ],
+                  datasets: [
+                    {
+                      data: [{{ heart_doctors }},{{ kidney_doctors }},{{ diabetes_doctors }},{{ cancer_doctors }}],
+                      backgroundColor : ['#f5e554', '#00a65a','#aa00ff', '#ff3d00'],
+                    }
+                  ]
+             };
+
+            var pieChartCanvas2 = $('#pieChart2').get(0).getContext('2d')
+            var pieOptions2     = {
+              maintainAspectRatio : false,
+              responsive : true,
+            }
+            //Create pie or douhnut chart
+            // You can switch between pie and douhnut using the method below.
+            var pieChart2 = new Chart(pieChartCanvas2, {
+              type: 'pie',
+              data: pieData2,
+              options: pieOptions2
+            });
+            var lineData = {
+            labels: ['1','2','3','4','5','6','7','8','9','10'],
+            datasets: [{
+                   label: 'Heart Disease',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "black",
+                    borderColor: "black",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "black",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "black",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: [0.87096774, 0.74193548, 0.87096774, 0.83333333, 0.83333333,
+                        0.83333333, 0.9       , 0.8       , 0.73333333, 0.83333333]
+                },
+                {
+                   label: 'Cancer Disease',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "blue",
+                    borderColor: "blue",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "blue",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "blue",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: [0.92982456, 0.92982456, 0.92982456, 0.94736842, 0.94736842,
+                            0.96491228, 0.92982456, 0.94736842, 0.96491228, 0.96428571]
+                },
+                {
+                   label: 'Kidney Disease',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "green",
+                    borderColor: "green",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "green",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "green",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: [1.   , 0.975, 1.   , 1.   , 0.975, 0.975, 0.975, 0.975, 0.975,
+                            0.975]
+                },
+                {
+                   label: 'Diabetes Disease',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "red",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "red",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: [0.72727273, 0.77922078, 0.80519481, 0.71428571, 0.74025974,
+                            0.76623377, 0.81818182, 0.80519481, 0.73684211, 0.82894737]
+                }
+            ]
+                };
+        var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
+        var lineOptions     = {
+              maintainAspectRatio : false,
+              responsive : true,
+              datasetFill : false
+            }
+        var lineChart = new Chart(lineChartCanvas, {
+              type: 'line',
+              data: lineData,
+              options: lineOptions
+            });
+    });
+</script>
+{% endblock custom_js %}

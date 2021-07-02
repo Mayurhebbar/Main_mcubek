@@ -1,7 +1,8 @@
 {% extends "doctor_template/base_heart.html" %}
-
+{% load static %}
 {% block main %}
 <!-- Modal -->
+<section class="content" style="background-color: lightskyblue; height: 225vh;">
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -12,31 +13,34 @@
                 </button>
             </div>
             <div class="modal-body">
-                <h5>Prediction Input:</h5>
-                <div>Patient ID: <span id="pi"></span></div>
-                <div>Patient Age: <span id="sw"></span></div>
-                <div>Patient Gender: <span id="pl"></span></div>
-                <div>CP: <span id="cpo"></span></div>
-                <div>Trestbps: <span id="tb"></span></div>
-                <div>Cholesterol: <span id="cl"></span></div>
-                <div>Restecg: <span id="rt"></span></div>
-                <div>Thalach: <span id="tl"></span></div>
-                <div>Exang: <span id="en"></span></div>
-                <div>Oldpeak: <span id="op"></span></div>
-                <div>Slope: <span id="sl"></span></div>
-                <div>Thal: <span id="th"></span></div>
-                <h5 class="pt-3">Disease Prediction:</h5>
+                <h5>Prediction Input :</h5>
+                <div>Patient ID : <span id="pi"></span></div>
+                <div>Patient Name : <span id="pn"></span></div>
+                <div>Patient Age : <span id="sw"></span></div>
+                <div>Patient Gender : <span id="pl"></span></div>
+                <div>CP (Chest Pain) : <span id="cpo"></span></div>
+                <div>Trestbps (Resting Blood Pressure) : <span id="tb"></span></div>
+                <div>Chol (Cholesterol) : <span id="cl"></span></div>
+                <div>FBS > 120 mg/dl (Fasting Blood Sugar) : <span id="fb"></span></div>
+                <div>Restecg (Resting Electrocardiographic Results) : <span id="rt"></span></div>
+                <div>Thalach (Maximum Heart Rate Achieved) : <span id="tl"></span></div>
+                <div>Exang (Exercise Induced Angina) : <span id="en"></span></div>
+                <div>Oldpeak (Depression Level) : <span id="op"></span></div>
+                <div>Slope (Condition During Peak Exercise) : <span id="sl"></span></div>
+                <div>CA (Result of Fluoroscopy) : <span id="cao"></span></div>
+                <div>Thal (Defect Type from Thallium Test) : <span id="th"></span></div>
+                <h5 class="pt-3">Disease Prediction : </h5>
                 <div id="prediction"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <a class="btn btn-primary" href="results_heart" role="button">View DB</a>
             </div>
         </div>
     </div>
 </div>
 
 <div class="container pt-5">
+     <!--<img src="{% static 'heart_image_1.jpg' %}"  width="200" height="300">-->
     <div class="row justify-content-md-center">
         <div class="col-md-4">
             <h1>Heart Disease Prediction</h1>
@@ -45,6 +49,10 @@
                 <div class="form-group">
                     <label for="Patient_ID">Patient ID</label>
                     <input type="text" class="form-control" id="Patient_ID" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="Patient_ID">Patient Name</label>
+                    <input type="text" class="form-control" id="Patient_Name" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
                     <label for="Patient_Age">Patient Age</label>
@@ -58,47 +66,47 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="cp">CP</label>
+                    <label for="cp">CP (Chest Pain)</label>
                     <input type="text" class="form-control" id="cp" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="trestbps">Trestbps</label>
+                    <label for="trestbps">Trestbps (Resting Blood Pressure)</label>
                     <input type="text" class="form-control" id="trestbps" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="chol">Cholesterol</label>
+                    <label for="chol">Chol (Cholesterol)</label>
                     <input type="text" class="form-control" id="chol" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="fbs">FBS</label>
+                    <label for="fbs">FBS > 120 mg/dl (Fasting Blood Sugar)</label>
                     <input type="text" class="form-control" id="fbs" placeholder="" required autocomplete="off">
                 </div>
                  <div class="form-group">
-                    <label for="restecg">Restecg</label>
+                    <label for="restecg">Restecg (Resting Electrocardiographic Results)</label>
                     <input type="text" class="form-control" id="restecg" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="thalach">Thalach</label>
+                    <label for="thalach">Thalach (Maximum Heart Rate Achieved)</label>
                     <input type="text" class="form-control" id="thalach" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="exang">Exang</label>
+                    <label for="exang">Exang (Exercise Induced Angina)</label>
                     <input type="text" class="form-control" id="exang" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="oldpeak">Oldpeak</label>
+                    <label for="oldpeak">Oldpeak (Depression Level)</label>
                     <input type="text" class="form-control" id="oldpeak" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="slope">Slope</label>
+                    <label for="slope">Slope (Condition During Peak Exercise)</label>
                     <input type="text" class="form-control" id="slope" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="ca">CA</label>
+                    <label for="ca">CA (Result of Fluoroscopy)</label>
                     <input type="text" class="form-control" id="ca" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="thal">Thal</label>
+                    <label for="thal">Thal (Defect Type from Thallium Test)</label>
                     <input type="text" class="form-control" id="thal" placeholder="" required autocomplete="off">
                 </div>
                 <button type="submit" value="Submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Submit</button>
@@ -106,7 +114,7 @@
         </div>
     </div>
 </div>
-
+</section>
 <script>
     $(document).on('submit', '#post-form',function(e){
         e.preventDefault();
@@ -115,16 +123,19 @@
             url:'{% url "predict_heart:submit_prediction" %}',
             data:{
                 Patient_ID:$('#Patient_ID').val(),
+                Patient_Name:$('#Patient_Name').val(),
                 Patient_Age:$('#Patient_Age').val(),
                 Patient_Gender:$('#Patient_Gender').val(),
                 cp:$('#cp').val(),
                 trestbps:$('#trestbps').val(),
                 chol:$('#chol').val(),
+                fbs:$('#fbs').val(),
                 restecg:$('#restecg').val(),
                 thalach:$('#thalach').val(),
                 exang:$('#exang').val(),
                 oldpeak:$('#oldpeak').val(),
                 slope:$('#slope').val(),
+                ca:$('#ca').val(),
                 thal:$('#thal').val(),
                 csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
                 action: 'post'
@@ -133,16 +144,19 @@
                 document.forms["post-form"].reset();
                 document.getElementById("prediction").innerHTML = json['result']
                 document.getElementById("pi").innerHTML = json['Patient_ID']
+                document.getElementById("pn").innerHTML = json['Patient_Name']
                 document.getElementById("sw").innerHTML = json['Patient_Age']
                 document.getElementById("pl").innerHTML = json['Patient_Gender']
                 document.getElementById("cpo").innerHTML = json['cp']
                 document.getElementById("tb").innerHTML = json['trestbps']
                 document.getElementById("cl").innerHTML = json['chol']
+                document.getElementById("fb").innerHTML = json['fbs']
                 document.getElementById("rt").innerHTML = json['restecg']
                 document.getElementById("tl").innerHTML = json['thalach']
                 document.getElementById("en").innerHTML = json['exang']
                 document.getElementById("op").innerHTML = json['oldpeak']
                 document.getElementById("sl").innerHTML = json['slope']
+                document.getElementById("cao").innerHTML = json['ca']
                 document.getElementById("th").innerHTML = json['thal']
             },
             error : function(xhr,errmsg,err) {

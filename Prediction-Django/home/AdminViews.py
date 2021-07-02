@@ -6,11 +6,32 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.core.files.storage import FileSystemStorage
 from home.models import CustomUser, Doctors
+from predict_heart.models import PredResults_heart
+from predict_cancers.models import PredResults_cancers
+from predict_kidney.models import PredResults_kidney
+from predict_diabetes.models import PredResults_diabetes
 from django.views.decorators.csrf import csrf_exempt
 
 
 def admin_home(request):
-    return render(request, "admin_template/admin_main_content.html")
+    doctor_count = Doctors.objects.all().count()
+    heart_patients = PredResults_heart.objects.all().count()
+    diabetes_patients = PredResults_diabetes.objects.all().count()
+    kidney_patients = PredResults_kidney.objects.all().count()
+    cancer_patients = PredResults_cancers.objects.all().count()
+    heart_doctors = Doctors.objects.filter(specialization="Heart").count()
+    diabetes_doctors = Doctors.objects.filter(specialization="Diabetes").count()
+    kidney_doctors = Doctors.objects.filter(specialization="Kidney").count()
+    cancer_doctors = Doctors.objects.filter(specialization="Cancer").count()
+    total_patients_count = heart_patients+diabetes_patients+kidney_patients+cancer_patients
+
+    return render(request, "admin_template/admin_main_content.html",
+                  {"doctor_count": doctor_count, "heart_patients": heart_patients,
+                   "diabetes_patients": diabetes_patients, "total_patients_count": total_patients_count,
+                   "kidney_patients": kidney_patients, "cancer_patients": cancer_patients, "heart_doctors": heart_doctors,
+                   "diabetes_doctors": diabetes_doctors,
+                   "kidney_doctors": kidney_doctors, "cancer_doctors": cancer_doctors
+                   })
 
 
 def add_doctor(request):
@@ -33,7 +54,7 @@ def add_doctor_save(request):
         address = request.POST.get("address")
         gender = request.POST.get("gender")
         ph_no = request.POST.get("ph_no")
-
+        qualification = request.POST.get("qualification")
         profile_pic = request.FILES['profile_pic']
         fs = FileSystemStorage()
         filename = fs.save(profile_pic.name, profile_pic)
@@ -49,6 +70,7 @@ def add_doctor_save(request):
             user.doctors.specialization = specialization
             user.doctors.blood_group = blood_group
             user.doctors.doctor_num = doctor_num
+            user.doctors.qualification = qualification
             user.doctors.profile_pic = profile_pic_url
             user.save()
             messages.success(request, "Successfully Added Doctor")
@@ -82,6 +104,7 @@ def edit_doctor_save(request):
         blood_group = request.POST.get("blood_group")
         address = request.POST.get("address")
         gender = request.POST.get("gender")
+        qualification = request.POST.get("qualification")
         ph_no = request.POST.get("ph_no")
         doctor_num = request.POST.get("doctor_num")
 
@@ -107,6 +130,7 @@ def edit_doctor_save(request):
             doctor_model.specialization = specialization
             doctor_model.blood_group = blood_group
             doctor_model.doctor_num = doctor_num
+            doctor_model.qualification = qualification
             if profile_pic_url != None:
                 doctor_model.profile_pic = profile_pic_url
             doctor_model.gender = gender

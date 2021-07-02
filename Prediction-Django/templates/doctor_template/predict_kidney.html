@@ -1,7 +1,8 @@
 {% extends "doctor_template/base_kidney.html" %}
-
+{% load static %}
 {% block main %}
 <!-- Modal -->
+<section class="content" style="background-color: lightskyblue; height: 375vh;">
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -14,25 +15,37 @@
             <div class="modal-body">
                 <h5>Prediction Input:</h5>
                 <div>Patient ID: <span id="pi"></span></div>
+                <div>Patient Name: <span id="pn"></span></div>
                 <div>Patient Age: <span id="sw"></span></div>
                 <div>Patient Gender: <span id="pl"></span></div>
-                <div>BP: <span id="bpo"></span></div>
-                <div>AL: <span id="alo"></span></div>
-                <div>PCC: <span id="pcco"></span></div>
-                <div>BGR: <span id="bgro"></span></div>
-                <div>BU: <span id="buo"></span></div>
-                <div>SC: <span id="sco"></span></div>
-                <div>HEMO: <span id="hemoo"></span></div>
-                <div>PCV: <span id="pcvo"></span></div>
-                <div>HTN: <span id="htno"></span></div>
-                <div>DM: <span id="dmo"></span></div>
-                <div>APPET: <span id="appeto"></span></div>
+                <div>Blood Pressure (mm/Hg): <span id="bpo"></span></div>
+                <div>Specific Gravity: <span id="sgo"></span></div>
+                <div>Albumin Level: <span id="alo"></span></div>
+                <div>Sugar Level: <span id="suo"></span></div>
+                <div>Red Blood Cells: <span id="rbco"></span></div>
+                <div>Pus Cell: <span id="pco"></span></div>
+                <div>Pus Cell Clumps: <span id="pcco"></span></div>
+                <div>Bacteria: <span id="bao"></span></div>
+                <div>Blood Glucose Random (mgs/dl):<span id="bgro"></span></div>
+                <div>Blood Urea (mgs/dl):<span id="buo"></span></div>
+                <div>Serum Creatinine (mgs/dl):<span id="sco"></span></div>
+                <div>Sodium (mEq/L):<span id="sodo"></span></div>
+                <div>Potassium (mEq/L):<span id="poto"></span></div>
+                <div>Hemoglobin (gms):<span id="hemoo"></span></div>
+                <div>Packed Cell Volume: <span id="pcvo"></span></div>
+                <div>White Blood Cell Count: <span id="wco"></span></div>
+                <div>Red Blood Cell Count: <span id="rco"></span></div>
+                <div>Hypertension: <span id="htno"></span></div>
+                <div>Diabetes Mellitus: <span id="dmo"></span></div>
+                <div>Coronary Artery Disease: <span id="cadao"></span></div>
+                <div>Appetite: <span id="appeto"></span></div>
+                <div>Pedal Edema: <span id="peo"></span></div>
+                <div>Anemia: <span id="aneo"></span></div>
                 <h5 class="pt-3">Disease Prediction:</h5>
                 <div id="prediction"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <a class="btn btn-primary" href="results_kidney" role="button">View DB</a>
             </div>
         </div>
     </div>
@@ -49,6 +62,10 @@
                     <input type="text" class="form-control" id="Patient_ID" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
+                    <label for="Patient_Name">Patient Name</label>
+                    <input type="text" class="form-control" id="Patient_Name" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
                     <label for="Patient_Age">Patient Age</label>
                     <input type="text" class="form-control" id="Patient_Age" placeholder="" required autocomplete="off">
                 </div>
@@ -60,95 +77,95 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="bp">BP</label>
+                    <label for="bp">Blood Pressure</label>
                     <input type="text" class="form-control" id="bp" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="sg">SG</label>
+                    <label for="sg">Specific Gravity</label>
                     <input type="text" class="form-control" id="sg" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="al">AL</label>
+                    <label for="al">Albumin Level</label>
                     <input type="text" class="form-control" id="al" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="su">SU</label>
+                    <label for="su">Sugar Level</label>
                     <input type="text" class="form-control" id="su" placeholder="" required autocomplete="off">
                 </div>
                  <div class="form-group">
-                    <label for="rbc">RBC</label>
+                    <label for="rbc">Red Blood Cells</label>
                     <input type="text" class="form-control" id="rbc" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="pc">PC</label>
+                    <label for="pc">Pus Cell</label>
                     <input type="text" class="form-control" id="pc" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="pcc">PCC</label>
+                    <label for="pcc">Pus Cell Clumps</label>
                     <input type="text" class="form-control" id="pcc" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="ba">BA</label>
+                    <label for="ba">Bacteria</label>
                     <input type="text" class="form-control" id="ba" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="bgr">BGR</label>
+                    <label for="bgr">Blood Glucose Random</label>
                     <input type="text" class="form-control" id="bgr" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="bu">BU</label>
+                    <label for="bu">Blood Urea</label>
                     <input type="text" class="form-control" id="bu" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="sc">SC</label>
+                    <label for="sc">Serum Creatinine</label>
                     <input type="text" class="form-control" id="sc" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="sod">SOD</label>
+                    <label for="sod">Sodium</label>
                     <input type="text" class="form-control" id="sod" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="pot">POT</label>
+                    <label for="pot">Potassium</label>
                     <input type="text" class="form-control" id="pot" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="hemo">HEMO</label>
+                    <label for="hemo">Hemoglobin</label>
                     <input type="text" class="form-control" id="hemo" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="pcv">PCV</label>
+                    <label for="pcv">Packed Cell Volume</label>
                     <input type="text" class="form-control" id="pcv" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="wc">WC</label>
+                    <label for="wc">White Blood Cell Count</label>
                     <input type="text" class="form-control" id="wc" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="rc">RC</label>
+                    <label for="rc">Red Blood Cell Count</label>
                     <input type="text" class="form-control" id="rc" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="htn">HTN</label>
+                    <label for="htn">Hypertension</label>
                     <input type="text" class="form-control" id="htn" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="dm">DM</label>
+                    <label for="dm">Diabetes Mellitus</label>
                     <input type="text" class="form-control" id="dm" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="cad">CAD</label>
-                    <input type="text" class="form-control" id="cad" placeholder="" required autocomplete="off">
+                    <label for="cada">Coronary Artery Disease</label>
+                    <input type="text" class="form-control" id="cada" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="appet">APPET</label>
+                    <label for="appet">Appetite</label>
                     <input type="text" class="form-control" id="appet" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="pe">PE</label>
+                    <label for="pe">Pedal Edema</label>
                     <input type="text" class="form-control" id="pe" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="ane">ANE</label>
+                    <label for="ane">Anemia</label>
                     <input type="text" class="form-control" id="ane" placeholder="" required autocomplete="off">
                 </div>
 
@@ -157,6 +174,7 @@
         </div>
     </div>
 </div>
+</section>
 
 <script>
     $(document).on('submit', '#post-form',function(e){
@@ -166,19 +184,32 @@
             url:'{% url "predict_kidney:submit_prediction" %}',
             data:{
                 Patient_ID:$('#Patient_ID').val(),
+                Patient_Name:$('#Patient_Name').val(),
                 Patient_Age:$('#Patient_Age').val(),
                 Patient_Gender:$('#Patient_Gender').val(),
                 bp:$('#bp').val(),
+                sg:$('#sg').val(),
                 al:$('#al').val(),
+                su:$('#su').val(),
+                rbc:$('#rbc').val(),
+                pc:$('#pc').val(),
                 pcc:$('#pcc').val(),
+                ba:$('#ba').val(),
                 bgr:$('#bgr').val(),
                 bu:$('#bu').val(),
                 sc:$('#sc').val(),
+                sod:$('#sod').val(),
+                pot:$('#pot').val(),
                 hemo:$('#hemo').val(),
                 pcv:$('#pcv').val(),
+                wc:$('#wc').val(),
+                rc:$('#rc').val(),
                 htn:$('#htn').val(),
                 dm:$('#dm').val(),
+                cada:$('#cada').val(),
                 appet:$('#appet').val(),
+                pe:$('#pe').val(),
+                ane:$('#ane').val(),
                 csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
                 action: 'post'
             },
@@ -186,19 +217,32 @@
                 document.forms["post-form"].reset();
                 document.getElementById("prediction").innerHTML = json['result']
                 document.getElementById("pi").innerHTML = json['Patient_ID']
+                document.getElementById("pn").innerHTML = json['Patient_Name']
                 document.getElementById("sw").innerHTML = json['Patient_Age']
                 document.getElementById("pl").innerHTML = json['Patient_Gender']
                 document.getElementById("bpo").innerHTML = json['bp']
+                document.getElementById("sgo").innerHTML = json['sg']
                 document.getElementById("alo").innerHTML = json['al']
+                document.getElementById("suo").innerHTML = json['su']
+                document.getElementById("rbco").innerHTML = json['rbc']
+                document.getElementById("pco").innerHTML = json['pc']
                 document.getElementById("pcco").innerHTML = json['pcc']
+                document.getElementById("bao").innerHTML = json['ba']
                 document.getElementById("bgro").innerHTML = json['bgr']
                 document.getElementById("buo").innerHTML = json['bu']
                 document.getElementById("sco").innerHTML = json['sc']
+                document.getElementById("sodo").innerHTML = json['sod']
+                document.getElementById("poto").innerHTML = json['pot']
                 document.getElementById("hemoo").innerHTML = json['hemo']
                 document.getElementById("pcvo").innerHTML = json['pcv']
+                document.getElementById("wco").innerHTML = json['wc']
+                document.getElementById("rco").innerHTML = json['rc']
                 document.getElementById("htno").innerHTML = json['htn']
                 document.getElementById("dmo").innerHTML = json['dm']
+                document.getElementById("cadao").innerHTML = json['cada']
                 document.getElementById("appeto").innerHTML = json['appet']
+                document.getElementById("peo").innerHTML = json['pe']
+                document.getElementById("aneo").innerHTML = json['ane']
 
             },
             error : function(xhr,errmsg,err) {

@@ -31,7 +31,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
 
 # Application definition
@@ -139,3 +142,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 AUTH_USER_MODEL = "home.CustomUser"
 AUTHENTICATION_BACKENDS = ['home.EmailBackEnd.EmailBackEnd']
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'a71518810@gmail.com'
+EMAIL_HOST_PASSWORD = 'duplicate123DUP@'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Predictor <a71518810@gmail.com>'
