@@ -39,11 +39,11 @@ def doctor_profile_save(request):
                 customuser.set_password(password)
             customuser.save()
             '''
-            staff = Staffs.objects.get(admin=customuser.id)
-            staff.address = address
-            staff.gender = gender
-            staff.ph_no = ph_no
-            staff.save()
+            doctor = Doctors.objects.get(admin=customuser.id)
+            doctor.address = address
+            doctor.gender = gender
+            doctor.ph_no = ph_no
+            doctor.save()
             '''
             messages.success(request, "Successfully Updated Password")
             return HttpResponseRedirect(reverse("home:doctor_profile"))
