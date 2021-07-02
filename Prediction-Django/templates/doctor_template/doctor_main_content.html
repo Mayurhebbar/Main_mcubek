@@ -6,8 +6,240 @@ Home
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+          <div class="row">
+              <div class="col-lg-6">
+                  <div class="card card-purple">
+                  <div class="card-header">
+                    <h3 class="card-title">Heart</h3>
+
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart">
+                      <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+              <div class="col-lg-6">
+                  <div class="card card-yellow">
+                  <div class="card-header">
+                    <h3 class="card-title">Cancer</h3>
+
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart">
+                      <canvas id="lineChart1" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+              <div class="col-lg-6">
+                  <div class="card card-green">
+                  <div class="card-header">
+                    <h3 class="card-title">Kidney</h3>
+
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart">
+                      <canvas id="lineChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+              <div class="col-lg-6">
+                  <div class="card card-danger">
+                  <div class="card-header">
+                    <h3 class="card-title">Diabetes</h3>
+
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart">
+                      <canvas id="lineChart3" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+          </div>
 
       </div>
     </section>
     <!-- /.content -->
 {% endblock main_content %}
+
+{% block custom_js %}
+<script>
+    $(document).ready(function(){
+        var lineData = {
+            labels: ['1','2','3','4','5','6','7','8','9','10'],
+            datasets: [{
+                   label: 'Heart Disease',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "black",
+                    borderColor: "black",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "black",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "black",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: [0.87096774, 0.74193548, 0.87096774, 0.83333333, 0.83333333,
+                        0.83333333, 0.9       , 0.8       , 0.73333333, 0.83333333]
+                }]
+                };
+        var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
+        var lineOptions     = {
+              maintainAspectRatio : false,
+              responsive : true,
+              datasetFill : false
+            }
+        var lineChart = new Chart(lineChartCanvas, {
+              type: 'line',
+              data: lineData,
+              options: lineOptions
+            });
+
+        var lineData1 = {
+            labels: ['1','2','3','4','5','6','7','8','9','10'],
+            datasets: [{
+                   label: 'Cancer Disease',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "black",
+                    borderColor: "black",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "black",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "black",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: [0.92982456, 0.92982456, 0.92982456, 0.94736842, 0.94736842,
+                            0.96491228, 0.92982456, 0.94736842, 0.96491228, 0.96428571]
+                }]
+                };
+        var lineChartCanvas1 = $('#lineChart1').get(0).getContext('2d')
+        var lineOptions1     = {
+              maintainAspectRatio : false,
+              responsive : true,
+              datasetFill : false
+            }
+        var lineChart1 = new Chart(lineChartCanvas1, {
+              type: 'line',
+              data: lineData1,
+              options: lineOptions1
+            });
+
+        var lineData2 = {
+            labels: ['1','2','3','4','5','6','7','8','9','10'],
+            datasets: [{
+                   label: 'Kidney Disease',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "black",
+                    borderColor: "black",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "black",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "black",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: [1.   , 0.975, 1.   , 1.   , 0.975, 0.975, 0.975, 0.975, 0.975,
+                            0.975]
+                }]
+                };
+        var lineChartCanvas2 = $('#lineChart2').get(0).getContext('2d')
+        var lineOptions2     = {
+              maintainAspectRatio : false,
+              responsive : true,
+              datasetFill : false
+            }
+        var lineChart2 = new Chart(lineChartCanvas2, {
+              type: 'line',
+              data: lineData2,
+              options: lineOptions2
+            });
+
+        var lineData3 = {
+            labels: ['1','2','3','4','5','6','7','8','9','10'],
+            datasets: [{
+                   label: 'Diabetes Disease',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "black",
+                    borderColor: "black",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "black",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "black",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: [0.72727273, 0.77922078, 0.80519481, 0.71428571, 0.74025974,
+                            0.76623377, 0.81818182, 0.80519481, 0.73684211, 0.82894737]
+                }]
+                };
+        var lineChartCanvas3 = $('#lineChart3').get(0).getContext('2d')
+        var lineOptions3     = {
+              maintainAspectRatio : false,
+              responsive : true,
+              datasetFill : false
+            }
+        var lineChart3 = new Chart(lineChartCanvas3, {
+              type: 'line',
+              data: lineData3,
+              options: lineOptions3
+            });
+    });
+</script>
+{% endblock custom_js %}
