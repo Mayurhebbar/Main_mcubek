@@ -15,6 +15,7 @@
                     <th scope="col">Patient Age</th>
                     <th scope="col">Patient Gender</th>
                     <th scope="col">Prediction</th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -30,9 +31,9 @@
                         {% endif %}
                         <td>{{ data.Patient_Age }}</td>
                         {% if data.Cancer_Disease == "0" %}
-                            <td>Benign (indicates absence of cancer cells)  ( {{ data.Cancer_Disease }} )</td>
+                            <td>Benign (Indicates Absence of Cancer Cells)  ( {{ data.Cancer_Disease }} )</td>
                         {% else %}
-                            <td>Malignant (indicates presence of cancer cells) ( {{ data.Cancer_Disease }} )</td>
+                            <td>Malignant (Indicates Presence of Cancer Cells) ( {{ data.Cancer_Disease }} )</td>
                         {% endif %}
                         <td><a href="{% url 'predict_cancers:predict_cancers-pdf-view' data.Patient_ID %}"><button class="btn btn-dark">Download Report</button></a></td>
                     </tr>

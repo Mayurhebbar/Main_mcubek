@@ -91,9 +91,9 @@ def predict_chances_cancers(request):
         print(Cancer_Disease)
 
         if Cancer_Disease == 0:
-            disease = "Benign (indicates absence of cancer cells)"
+            disease = "Benign (Indicates Absence of Cancer Cells)"
         else:
-            disease = "Malignant (indicates presence of cancer cells)"
+            disease = "Malignant (Indicates Presence of Cancer Cells)"
 
         patients_lists = PredResults_cancers.objects.all()
         ID_list = []

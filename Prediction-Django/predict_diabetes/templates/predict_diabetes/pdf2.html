@@ -68,9 +68,9 @@ Date : {{ predict_diabetes.updated_at | date:'d-m-Y' }}
     Skin Thickness  : {% if predict_diabetes.SkinThickness < 15 %}
     Normal
     {% elif predict_diabetes.SkinThickness > 15 and predict_diabetes.SkinThickness < 30 %}
-    Risk is Moderate for occuring of diabetes
+    Risk is Moderate for occurance of Diabetes
     {% else %}
-    Risk is high for occuring of diabetes
+    Risk is High for occurance of Diabetes
     {% endif %} <br>
     Insulin (2-Hour serum insulin) : {% if predict_diabetes.Insulin < 100 %}
     Normal
@@ -79,10 +79,10 @@ Date : {{ predict_diabetes.updated_at | date:'d-m-Y' }}
     {% else %}
     Diabetic
     {% endif %} <br>
-    BMI (Body Mass Index ) : {% if predict_diabetes.BMI < 25 %}
+    BMI (Body Mass Index) : {% if predict_diabetes.BMI < 25 %}
     Normal
     {% else %}
-    Over Weight-Risk is high for occuring of diabetes
+    Over Weight-Risk is High for Occurance of Diabetes
     {% endif %} <br>
     Diabetes Pedigree Function : {{ predict_diabetes.DiabetesPedigreeFunction | floatformat }} <br>
     Final Prediction :  {% if predict_diabetes.Diabetes_Disease == "0" %}

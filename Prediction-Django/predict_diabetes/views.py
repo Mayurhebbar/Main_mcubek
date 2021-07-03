@@ -109,7 +109,7 @@ def predict_chances_diabetes(request):
         elif SkinThickness > 15 and SkinThickness < 30:
             SkinThickness = "Moderate Risk"
         else:
-            SkinThickness = "Risk is high for occuring of diabetes"
+            SkinThickness = "Risk is High for Occurance of Diabetes"
 
         if Insulin < 100:
             Insulin = "Normal"
@@ -121,9 +121,9 @@ def predict_chances_diabetes(request):
         if BMI < 25:
             BMI = "Normal"
         else:
-            BMI = "Over Weight-Risk is high for occuring of diabetes"
+            BMI = "Over Weight-Risk is High for Occurance of Diabetes"
 
-        return JsonResponse({'result': disease, 'Patient_ID': Patient_ID, 'Patient_Age': Patient_Age,
+        return JsonResponse({'result': disease, 'Patient_ID': Patient_ID, 'Patient_Age': Patient_Age, 'Patient_Name': Patient_Name,
                              'Patient_Gender': Patient_Gender, 'pregnancies': Pregnancies, 'glucose': Glucose, 'bloodPressure': BloodPressure,
                              'skinThickness': SkinThickness, 'insulin': Insulin, 'bmi': BMI, 'diabetesPedigreeFunction': DiabetesPedigreeFunction
                             },
