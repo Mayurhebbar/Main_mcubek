@@ -19,12 +19,18 @@ def admin_home(request):
     diabetes_patients = PredResults_diabetes.objects.all().count()
     kidney_patients = PredResults_kidney.objects.all().count()
     cancer_patients = PredResults_cancers.objects.all().count()
+    heart_doctors = Doctors.objects.filter(specialization="Heart").count()
+    diabetes_doctors = Doctors.objects.filter(specialization="Diabetes").count()
+    kidney_doctors = Doctors.objects.filter(specialization="Kidney").count()
+    cancer_doctors = Doctors.objects.filter(specialization="Cancer").count()
     total_patients_count = heart_patients+diabetes_patients+kidney_patients+cancer_patients
 
     return render(request, "admin_template/admin_main_content.html",
                   {"doctor_count": doctor_count, "heart_patients": heart_patients,
                    "diabetes_patients": diabetes_patients, "total_patients_count": total_patients_count,
-                   "kidney_patients": kidney_patients, "cancer_patients": cancer_patients,
+                   "kidney_patients": kidney_patients, "cancer_patients": cancer_patients, "heart_doctors": heart_doctors,
+                   "diabetes_doctors": diabetes_doctors,
+                   "kidney_doctors": kidney_doctors, "cancer_doctors": cancer_doctors
                    })
 
 
