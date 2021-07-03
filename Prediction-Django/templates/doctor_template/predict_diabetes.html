@@ -16,6 +16,7 @@
                 <h5>Prediction Input:</h5>
                 <div>Patient ID: <span id="pi"></span></div>
                 <div>Patient Age: <span id="sw"></span></div>
+                <div>Patient Name: <span id="pn"></span></div>
                 <div>Patient Gender: <span id="pl"></span></div>
                 <div>Pregnancies: <span id="prg"></span></div>
                 <div>Glucose: <span id="glc"></span></div>
@@ -47,6 +48,10 @@
                 <div class="form-group">
                     <label for="Patient_Age">Patient Age</label>
                     <input type="text" class="form-control" id="Patient_Age" placeholder="" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="Patient_Name">Patient Name</label>
+                    <input type="text" class="form-control" id="Patient_Name" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
                     <label for="Patient_Gender">Patient Gender</label>
@@ -98,6 +103,7 @@
             data:{
                 Patient_ID:$('#Patient_ID').val(),
                 Patient_Age:$('#Patient_Age').val(),
+                Patient_Name:$('#Patient_Name').val(),
                 Patient_Gender:$('#Patient_Gender').val(),
                 pregnancies:$('#pregnancies').val(),
                 glucose:$('#glucose').val(),
@@ -114,6 +120,7 @@
                 document.getElementById("prediction").innerHTML = json['result']
                 document.getElementById("pi").innerHTML = json['Patient_ID']
                 document.getElementById("sw").innerHTML = json['Patient_Age']
+                document.getElementById("pn").innerHTML = json['Patient_Name']
                 document.getElementById("pl").innerHTML = json['Patient_Gender']
                 document.getElementById("prg").innerHTML = json['pregnancies']
                 document.getElementById("glc").innerHTML = json['glucose']
