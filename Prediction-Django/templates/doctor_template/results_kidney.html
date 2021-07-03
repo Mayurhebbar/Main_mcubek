@@ -1,6 +1,7 @@
 {% extends "doctor_template/base_kidney.html" %}
-
+{% load static %}
 {% block main %}
+    <section class="content" style="background-color: darkgrey; height: 225vh;">
     <div class="container pt-5">
         <div class="row">
 
@@ -9,26 +10,39 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Patient ID</th>
+                    <th scope="col">Patient Name</th>
                     <th scope="col">Patient Age</th>
                     <th scope="col">Patient Gender</th>
                     <th scope="col">Prediction</th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for data in dataset %}
+                    {% if data.consulted_doctor == request.user.id %}
                     <tr>
-                    <th scope="row">{{ data.id }}</th>
                         <td>{{ data.Patient_ID }}</td>
+                        <td>{{ data.Patient_Name }}</td>
                         <td>{{ data.Patient_Age }}</td>
-                        <td>{{ data.Patient_Gender }}</td>
-                        <td>{{ data.Kidney_Disease }}</td>
+                        {% if data.Patient_Gender == 0 %}
+                            <td>Female</td>
+                        {% else %}
+                            <td>Male</td>
+                        {% endif %}
+                        {% if data.Kidney_Disease == '0' %}
+                            <td>No Risk  ( {{ data.Kidney_Disease }} )</td>
+                        {% else %}
+                            <td>At Risk ( {{ data.Kidney_Disease }} )</td>
+                        {% endif %}
+                        <td><a href="{% url 'predict_kidney:predict_kidney-pdf-view' data.Patient_ID %}"><button class="btn btn-primary">Download Report</button></a></td>
                     </tr>
+                    {% endif %}
                 {% endfor %}
 
                 </tbody>
             </table>
         </div>
     </div>
+    </section>
 {% endblock %}

@@ -52,9 +52,17 @@ Edit Doctor | Username : {{ doctor.admin.username }} |  #ID : {{ doctor.admin.id
                     <input type="date" class="form-control" placeholder="dob" name="dob" value="{{ doctor.dob | date:'Y-m-d' }}">
                   </div>
                     <div class="form-group">
-                    <label>Specialization</label>
-                    <input type="text" class="form-control" placeholder="Specialization" name="specialization" value="{{ doctor.specialization }}" autocomplete="off">
+                    <label>Qualification</label>
+                    <input type="text" class="form-control" placeholder="Qualification" name="qualification" value="{{ doctor.qualification }}" autocomplete="off">
                   </div>
+                <div class="form-group">
+                    <label>Specialization</label>
+                    <select class="form-control" name="specialization">
+                            <option {% if doctor.specialization == "Heart" %} selected {% endif %}>Heart</option>
+                            <option {% if doctor.specialization == "Kidney" %} selected {% endif %}>Kidney</option>
+                            <option {% if doctor.specialization == "Cancer" %} selected {% endif %}>Cancer</option>
+                            <option {% if doctor.specialization == "Diabetes" %} selected {% endif %}>Diabetes</option>
+                    </select>
                     <div class="form-group">
                     <label>Blood Group</label>
                     <input type="text" class="form-control" placeholder="Blood Group" name="blood_group" value="{{ doctor.blood_group }}" autocomplete="off">

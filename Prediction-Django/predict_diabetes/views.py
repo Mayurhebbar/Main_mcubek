@@ -1,9 +1,37 @@
 import joblib
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 import pandas as pd
-from .models import PredResults
+from .models import PredResults_diabetes
+from home.models import CustomUser, Doctors
 from sklearn.preprocessing import StandardScaler
+import numpy as np
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+
+def predict_diabetes_render_pdf_view(request, *args, **kwargs):
+    Patient_ID = kwargs.get('Patient_ID')
+    predict_diabetes = get_object_or_404(PredResults_diabetes, Patient_ID=Patient_ID)
+    doctor_details = get_object_or_404(CustomUser, id=request.user.id)
+    doctor_details_new = get_object_or_404(Doctors, admin_id=request.user.id)
+    template_path = 'predict_diabetes/pdf2.html'
+    context = {'predict_diabetes': predict_diabetes, 'doctor_details': doctor_details, 'doctor_details_new': doctor_details_new}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="Diabetes Disease Report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    print(template)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+        html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
 
 
 def predict_diabetes(request):
@@ -13,54 +41,87 @@ def predict_diabetes(request):
 def predict_chances_diabetes(request):
     if request.POST.get('action') == 'post':
         # Receive data from client
-        Patient_ID = int(request.POST.get('Patient_ID'))
-        Patient_Age = int(request.POST.get('Patient_Age'))
-        Patient_Gender = int(request.POST.get('Patient_Gender'))
-        Pregnancies = int(request.POST.get('pregnancies'))
-        Glucose = int(request.POST.get('glucose'))
-        BloodPressure = int(request.POST.get('bloodPressure'))
-        # FBS = int(request.POST.get('fbs'))
-        SkinThickness = int(request.POST.get('skinThickness'))
-        Insulin = int(request.POST.get('insulin'))
+        Patient_Name = str(request.POST.get('Patient_Name'))
+        Patient_ID = float(request.POST.get('Patient_ID'))
+        Patient_Age = float(request.POST.get('Patient_Age'))
+        Patient_Gender = float(request.POST.get('Patient_Gender'))
+        Pregnancies = float(request.POST.get('pregnancies'))
+        Glucose = float(request.POST.get('glucose'))
+        BloodPressure = float(request.POST.get('bloodPressure'))
+        SkinThickness = float(request.POST.get('skinThickness'))
+        Insulin = float(request.POST.get('insulin'))
         BMI = float(request.POST.get('bmi'))
         DiabetesPedigreeFunction = float(request.POST.get('diabetesPedigreeFunction'))
-    
-        # standardizing variables
+        consulted_doctor = request.user.id
 
-        sc = StandardScaler()
-        Patient_Age1 = sc.fit_transform([[Patient_Age]])
-        Pregnancies1 = sc.fit_transform([[Pregnancies]])
-        Glucose1 = sc.fit_transform([[Glucose]])
-        BloodPressure1 = sc.fit_transform([[BloodPressure]])
-        SkinThickness1 = sc.fit_transform([[SkinThickness]])
-        Insulin1 = sc.fit_transform([[Insulin]])
-        BMI1 = sc.fit_transform([[BMI]])
-        DiabetesPedigreeFunction1 = sc.fit_transform([[DiabetesPedigreeFunction]])
-    
-        # Unpickle model
         model = joblib.load("diabetes_model")
-        result = model.predict(
-            [[Patient_Age1[0][0], Pregnancies1[0][0], Glucose1[0][0], BloodPressure1[0][0], SkinThickness1[0][0],
-              Insulin1[0][0], BMI1[0][0], DiabetesPedigreeFunction1[0][0]]])
+        result = model.predict([[Pregnancies, Glucose, BloodPressure, SkinThickness,
+              Insulin, BMI, DiabetesPedigreeFunction, Patient_Age]])
+                                 
+        Diabetes_Disease =int(result[0])
 
-        diabetes_Disease = result[0]
-        '''
-        if diabetes_Disease == 0:
-            disease = "No"
+        if Diabetes_Disease == 0:
+            disease = "No Risk"
         else:
-            disease = "Yes"
-        '''
+            disease = "At Risk"
 
-        PredResults.objects.create(Patient_ID=Patient_ID, Patient_Age=Patient_Age, Patient_Gender=Patient_Gender,
-                                   Diabetes_Disease=diabetes_Disease)
-        '''
+        patients_lists = PredResults_diabetes.objects.all()
+        ID_list = []
+        for patients_list in patients_lists:
+            individual_list = patients_list.Patient_ID
+            ID_list.append(individual_list)
+
+        if Patient_ID not in ID_list:
+            user = PredResults_diabetes(Patient_ID=Patient_ID, Patient_Name=Patient_Name, Patient_Age=Patient_Age,
+                               Patient_Gender=Patient_Gender,
+                               Diabetes_Disease=Diabetes_Disease, Pregnancies=Pregnancies, Glucose=Glucose, BloodPressure=BloodPressure,
+                               SkinThickness=SkinThickness, Insulin=Insulin,
+                               BMI=BMI, DiabetesPedigreeFunction=DiabetesPedigreeFunction, consulted_doctor=consulted_doctor)
+            user.save()
+        else:
+            update_list = PredResults_diabetes.objects.get(Patient_ID=Patient_ID)
+            update_list.Patient_Age = Patient_Age
+            update_list.Diabetes_Disease = Diabetes_Disease
+            update_list.Pregnancies = Pregnancies
+            update_list.Glucose = Glucose
+            update_list.BloodPressure = BloodPressure
+            update_list.SkinThickness = SkinThickness
+            update_list.Insulin = Insulin
+            update_list.BMI = BMI
+            update_list.DiabetesPedigreeFunction = DiabetesPedigreeFunction
+            update_list.consulted_doctor = consulted_doctor
+            update_list.save()
+
         if Patient_Gender == 0:
-            gender = "Female"
+            Patient_Gender = "Female"
         else:
-            gender = "Male"
-        '''
+            Patient_Gender = "Male"
 
-        return JsonResponse({'result': int(diabetes_Disease), 'Patient_ID': Patient_ID, 'Patient_Age': Patient_Age,
+        if Glucose < 120:
+            Glucose = "Normal"
+        else:
+            Glucose = "Diabetic"
+
+        if SkinThickness < 15:
+            SkinThickness = "Normal"
+        elif SkinThickness > 15 and SkinThickness < 30:
+            SkinThickness = "Moderate Risk"
+        else:
+            SkinThickness = "Risk is high for occuring of diabetes"
+
+        if Insulin < 100:
+            Insulin = "Normal"
+        elif Insulin > 100 and Insulin < 300:
+            Insulin = "Lessely Occuring"
+        else:
+            Insulin = "Diabetic"
+
+        if BMI < 25:
+            BMI = "Normal"
+        else:
+            BMI = "Over Weight-Risk is high for occuring of diabetes"
+
+        return JsonResponse({'result': disease, 'Patient_ID': Patient_ID,'Patient_Name': Patient_Name, 'Patient_Age': Patient_Age,
                              'Patient_Gender': Patient_Gender, 'pregnancies': Pregnancies, 'glucose': Glucose, 'bloodPressure': BloodPressure,
                              'skinThickness': SkinThickness, 'insulin': Insulin, 'bmi': BMI, 'diabetesPedigreeFunction': DiabetesPedigreeFunction
                             },
@@ -69,6 +130,6 @@ def predict_chances_diabetes(request):
 
 def view_results_diabetes(request):
     # Submit prediction and show all
-    data = {"dataset": PredResults.objects.all()}
+    data = {"dataset": PredResults_diabetes.objects.all()}
 
     return render(request, "doctor_template/result_diabetes.html", data)

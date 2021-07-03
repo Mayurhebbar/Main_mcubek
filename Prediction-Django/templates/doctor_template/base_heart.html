@@ -19,20 +19,24 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/predict_heart">Prediction</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home:doctor_home' %}" style="color: black">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="results_heart">DB</a>
+                    <a class="nav-link" href="/predict_heart" style="color: black">Prediction</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'home:doctor_home' %}">Home</a>
+                    <a class="nav-link" href="results_heart" style="color: black">Report Download</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home:logout' %}" style="color: black">Logout</a>
                 </li>
             </ul>
         </div>
     </nav>
 
     {% block main %}
+        <section class="content" style="background-color: black; height: 108vh; background-size: cover; background-position: center; background-repeat: no-repeat;"></section>
     {% endblock %}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
