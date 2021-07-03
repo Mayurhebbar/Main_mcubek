@@ -40,7 +40,7 @@
 </head>
 <body>
 
-div class="wrapper">
+<div class="wrapper">
 <div class="header">
     <p class="title">Diabetes Disease Report</p>
     <hr class="hrItem">
@@ -64,8 +64,8 @@ Date : {{ predict_diabetes.updated_at | date:'d-m-Y' }}
     {% else %}
     Diabetic
     {% endif %} <br>
-    BP (Normal:Below 120, Elevated:120-129, Hypertension:120 and above) : {{ predict_diabetes.BP }} <br>
-    SkinThickness  : {% if predict_diabetes.SkinThickness < 15 %}
+    Blood Pressure (Normal:Below 120, Elevated:120-129, Hypertension:120 and above) : {{ predict_diabetes.BP }} <br>
+    Skin Thickness  : {% if predict_diabetes.SkinThickness < 15 %}
     Normal
     {% elif predict_diabetes.SkinThickness > 15 and predict_diabetes.SkinThickness < 30 %}
     Risk is Moderate for occuring of diabetes
@@ -84,11 +84,11 @@ Date : {{ predict_diabetes.updated_at | date:'d-m-Y' }}
     {% else %}
     Over Weight-Risk is high for occuring of diabetes
     {% endif %} <br>
-    DiabetesPedigreeFunction : {{ predict_diabetes.DiabetesPedigreeFunction | floatformat }} <br>
+    Diabetes Pedigree Function : {{ predict_diabetes.DiabetesPedigreeFunction | floatformat }} <br>
     Final Prediction :  {% if predict_diabetes.Diabetes_Disease == "0" %}
-                            No Risk
+                            <b>No Risk</b>
                             {% else %}
-                               <b>At Risk<b>
+                               <b>At Risk</b>
                                 {% endif %}
 </div>
 </body>
