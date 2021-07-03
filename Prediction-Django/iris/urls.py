@@ -25,7 +25,6 @@ urlpatterns = [
     path('predict_heart/', include('predict_heart.urls', namespace='predict_heart')),
     path('predict_kidney/', include('predict_kidney.urls', namespace='predict_kidney')),
     path('predict_cancers/', include('predict_cancers.urls', namespace='predict_cancers')),
-
     path('predict_diabetes/', include('predict_diabetes.urls', namespace='predict_diabetes')),
     path('', include('home.urls', namespace='home')),
 
