@@ -1,8 +1,8 @@
 {% extends "doctor_template/base_cancers.html" %}
-
+{% load static %}
 {% block main %}
 <!-- Modal -->
-<section class="content" style="background-color: lightskyblue; height: 450vh;">
+<section class="content" style="background-color: lightskyblue; height: 530vh;">
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -15,38 +15,39 @@
             <div class="modal-body">
                 <h5>Prediction Input:</h5>
                 <div>Patient ID: <span id="pi"></span></div>
+                <div>Patient Name : <span id="pn"></span></div>
                 <div>Patient Age: <span id="sw"></span></div>
                 <div>Patient Gender: <span id="pl"></span></div>
-                <div>RADIUS MEAN: <span id="radius_meano"></span></div>
-                <div>TEXTURE MEAN: <span id="texture_meano"></span></div>
-                <div>PERIMETER MEAN: <span id="perimeter_meano"></span></div>
-                <div>AREA MEAN: <span id="area_meano"></span></div>
-                <div>SMOOTHNESS MEAN: <span id="smoothness_meano"></span></div>
-                <div>COMPACTNESS MEAN: <span id="compactness_meano"></span></div>
-                <div>CONCAVITY MEAN: <span id="concavity_meano"></span></div>
-                <div>CONCAVE POINTS MEAN: <span id="concave_points_meano"></span></div>
-                <div>SYMMETRY MEAN: <span id="symmetry_meano"></span></div>
-                <div>FRACTAL DIMENSION MEAN: <span id="fractal_dimension_meano"></span></div>
-                <div>RADIUS SE: <span id="radius_seo"></span></div>
-                <div>TEXTURE SE: <span id="texture_seo"></span></div>
-                <div>PERIMETER SE: <span id="perimeter_seo"></span></div>
-                <div>AREA SE: <span id="area_seo"></span></div>
-                <div>SMOOTHNESS SE: <span id="smoothness_seo"></span></div>
-                <div>COMPACTNESS SE: <span id="compactness_seo"></span></div>
-                <div>CONCAVITY SE: <span id="concavity_seo"></span></div>
-                <div>CONCAVE POINTS SE: <span id="concave_points_seo"></span></div>
-                <div>SYMMETRY SE: <span id="symmetry_seo"></span></div>
-                <div>FRACTAL DIMENSION SE: <span id="fractal_dimension_seo"></span></div>
-                <div>RADIUS WORST: <span id="radius_worsto"></span></div>
-                <div>TEXTURE WORST: <span id="texture_worsto"></span></div>
-                <div>PERIMETER WORST: <span id="perimeter_worsto"></span></div>
-                <div>AREA WORST: <span id="area_worsto"></span></div>
-                <div>SMOOTHNESS WORST: <span id="smoothness_worsto"></span></div>
-                <div>COMPACTNESS WORST: <span id="compactness_worsto"></span></div>
-                <div>CONCAVITY WORST: <span id="concavity_worsto"></span></div>
-                <div>CONCAVE POINTS WORST: <span id="concave_points_worsto"></span></div>
-                <div>SYMMETRY WORST: <span id="symmetry_worsto"></span></div>
-                <div>FRACTAL DIMENSION WORST: <span id="fractal_dimension_worsto"></span></div>
+                <div>Radius Mean: <span id="radius_meano"></span></div>
+                <div>Texture Mean (Standard Deviation of Gray-Scale Values): <span id="texture_meano"></span></div>
+                <div>Perimeter Mean: <span id="perimeter_meano"></span></div>
+                <div>Area Mean: <span id="area_meano"></span></div>
+                <div>Smoothness Mean (Local Variation In Radius Lengths): <span id="smoothness_meano"></span></div>
+                <div>Compactness Mean (perimeter^2 / area - 1.0): <span id="compactness_meano"></span></div>
+                <div>Concavity Mean (Severity of Concave Portions of the Contour): <span id="concavity_meano"></span></div>
+                <div>Concave Points Mean (Number of Concave Portions of the Contour): <span id="concave_points_meano"></span></div>
+                <div>Symmetry Mean: <span id="symmetry_meano"></span></div>
+                <div>Fractal Dimension Mean: <span id="fractal_dimension_meano"></span></div>
+                <div>Radius Standard Error: <span id="radius_seo"></span></div>
+                <div>Texture Standard Error (Standard Deviation of Gray-Scale Values): <span id="texture_seo"></span></div>
+                <div>Perimeter Standard Error: <span id="perimeter_seo"></span></div>
+                <div>Area Standard Error: <span id="area_seo"></span></div>
+                <div>Smoothness Standard Error (Local Variation In Radius Lengths): <span id="smoothness_seo"></span></div>
+                <div>Compactness Standard Error (perimeter^2 / area - 1.0): <span id="compactness_seo"></span></div>
+                <div>Concavity Standard Error (Severity of Concave Portions of the Contour): <span id="concavity_seo"></span></div>
+                <div>Concave Points Standard Error (Number of Concave Portions of the Contour): <span id="concave_points_seo"></span></div>
+                <div>Symmetry Standard Error: <span id="symmetry_seo"></span></div>
+                <div>Fractal Dimension Standard Error: <span id="fractal_dimension_seo"></span></div>
+                <div>Radius Worst: <span id="radius_worsto"></span></div>
+                <div>Texture Worst (Standard Deviation of Gray-Scale Values): <span id="texture_worsto"></span></div>
+                <div>Perimeter Worst: <span id="perimeter_worsto"></span></div>
+                <div>Area Worst: <span id="area_worsto"></span></div>
+                <div>Smoothness Worst (Local Variation In Radius Lengths): <span id="smoothness_worsto"></span></div>
+                <div>Compactness Worst (perimeter^2 / area - 1.0): <span id="compactness_worsto"></span></div>
+                <div>Concavity Worst (Severity of Concave Portions of the Contour): <span id="concavity_worsto"></span></div>
+                <div>Concave Points Worst (Number of Concave Portions of the Contour): <span id="concave_points_worsto"></span></div>
+                <div>Symmetry Worst: <span id="symmetry_worsto"></span></div>
+                <div>Fractal Dimension Worst: <span id="fractal_dimension_worsto"></span></div>
                 <h5 class="pt-3">Disease Prediction:</h5>
                 <div id="prediction"></div>
             </div>
@@ -65,11 +66,15 @@
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="Patient_ID">Patient ID</label>
-                    <input type="text" class="form-control" id="Patient_ID" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="Patient_ID" placeholder="" autocomplete="off" required>
+                </div>
+                <div class="form-group">
+                    <label for="Patient_ID">Patient Name</label>
+                    <input type="text" class="form-control" id="Patient_Name" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="Patient_Age">Patient Age</label>
-                    <input type="text" class="form-control" id="Patient_Age" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="Patient_Age" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="Patient_Gender">Patient Gender</label>
@@ -79,124 +84,124 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="radius_mean">RADIUS MEAN</label>
-                    <input type="text" class="form-control" id="radius_mean" placeholder="" required autocomplete="off">
+                    <label for="radius_mean">Radius Mean</label>
+                    <input type="text" class="form-control" id="radius_mean" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="texture_mean">TEXTURE MEAN</label>
-                    <input type="text" class="form-control" id="texture_mean" placeholder="" required autocomplete="off">
+                    <label for="texture_mean">Texture Mean (Standard Deviation of Gray-Scale Values)</label>
+                    <input type="text" class="form-control" id="texture_mean" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="perimeter_mean">PERIMETER MEAN</label>
-                    <input type="text" class="form-control" id="perimeter_mean" placeholder="" required autocomplete="off">
+                    <label for="perimeter_mean">Perimeter Mean</label>
+                    <input type="text" class="form-control" id="perimeter_mean" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="area_mean">AREA MEAN</label>
-                    <input type="text" class="form-control" id="area_mean" placeholder="" required autocomplete="off">
+                    <label for="area_mean">Area Mean</label>
+                    <input type="text" class="form-control" id="area_mean" placeholder="" autocomplete="off" required>
                 </div>
                  <div class="form-group">
-                    <label for="smoothness_mean">SMOOTHNESS MEAN</label>
-                    <input type="text" class="form-control" id="smoothness_mean" placeholder="" required autocomplete="off">
+                    <label for="smoothness_mean">Smoothness Mean (Local Variation In Radius Lengths)</label>
+                    <input type="text" class="form-control" id="smoothness_mean" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="compactness_mean">COMPACTNESS MEAN</label>
-                    <input type="text" class="form-control" id="compactness_mean" placeholder="" required autocomplete="off">
+                    <label for="compactness_mean">Compactness Mean (perimeter^2 / area - 1.0)</label>
+                    <input type="text" class="form-control" id="compactness_mean" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="concavity_mean">CONCAVITY MEAN</label>
-                    <input type="text" class="form-control" id="concavity_mean" placeholder="" required autocomplete="off">
+                    <label for="concavity_mean">Concavity Mean (Severity of Concave Portions of the Contour)</label>
+                    <input type="text" class="form-control" id="concavity_mean" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="concave_points_mean">CONCAVE POINTS MEAN</label>
-                    <input type="text" class="form-control" id="concave_points_mean" placeholder="" required autocomplete="off">
+                    <label for="concave_points_mean">Concave Points Mean (Number of Concave Portions of the Contour)</label>
+                    <input type="text" class="form-control" id="concave_points_mean" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="symmetry_mean">SYMMETRY MEAN</label>
-                    <input type="text" class="form-control" id="symmetry_mean" placeholder="" required autocomplete="off">
+                    <label for="symmetry_mean">Symmetry Mean</label>
+                    <input type="text" class="form-control" id="symmetry_mean" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="fractal_dimension_mean">FRACTAL DIMENSION MEAN</label>
-                    <input type="text" class="form-control" id="fractal_dimension_mean" placeholder="" required autocomplete="off">
+                    <label for="fractal_dimension_mean">Fractal Dimension Mean</label>
+                    <input type="text" class="form-control" id="fractal_dimension_mean" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="radius_se">RADIUS SE</label>
-                    <input type="text" class="form-control" id="radius_se" placeholder="" required autocomplete="off">
+                    <label for="radius_se">Radius Standard Error</label>
+                    <input type="text" class="form-control" id="radius_se" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="texture_se">TEXTURE SE</label>
-                    <input type="text" class="form-control" id="texture_se" placeholder="" required autocomplete="off">
+                    <label for="texture_se">Texture Standard Error (Standard Deviation of Gray-Scale Values)</label>
+                    <input type="text" class="form-control" id="texture_se" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="perimeter_se">PERIMETER SE</label>
-                    <input type="text" class="form-control" id="perimeter_se" placeholder="" required autocomplete="off">
+                    <label for="perimeter_se">Perimeter Standard Error</label>
+                    <input type="text" class="form-control" id="perimeter_se" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="area_se">AREA SE</label>
-                    <input type="text" class="form-control" id="area_se" placeholder="" required autocomplete="off">
+                    <label for="area_se">Area Standard Error</label>
+                    <input type="text" class="form-control" id="area_se" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="smoothness_se">SMOOTHNESS SE</label>
-                    <input type="text" class="form-control" id="smoothness_se" placeholder="" required autocomplete="off">
+                    <label for="smoothness_se">Smoothness Standard Error (Local Variation In Radius Lengths)</label>
+                    <input type="text" class="form-control" id="smoothness_se" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="compactness_se">COMPACTNESS SE</label>
-                    <input type="text" class="form-control" id="compactness_se" placeholder="" required autocomplete="off">
+                    <label for="compactness_se">Compactness Standard Error (perimeter^2 / area - 1.0)</label>
+                    <input type="text" class="form-control" id="compactness_se" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="concavity_se">CONCAVITY SE</label>
-                    <input type="text" class="form-control" id="concavity_se" placeholder="" required autocomplete="off">
+                    <label for="concavity_se">Concavity Standard Error (Severity of Concave Portions of the Contour)</label>
+                    <input type="text" class="form-control" id="concavity_se" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="concave_points_se">CONCAVE POINTS SE</label>
-                    <input type="text" class="form-control" id="concave_points_se" placeholder="" required autocomplete="off">
+                    <label for="concave_points_se">Concave Points Standard Error (Number of Concave Portions of the Contour)</label>
+                    <input type="text" class="form-control" id="concave_points_se" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="symmetry_se">SYMMETRY SE</label>
-                    <input type="text" class="form-control" id="symmetry_se" placeholder="" required autocomplete="off">
+                    <label for="symmetry_se">Symmetry Standard Error</label>
+                    <input type="text" class="form-control" id="symmetry_se" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="fractal_dimension_se">FRACTAL DIMENSION SE</label>
-                    <input type="text" class="form-control" id="fractal_dimension_se" placeholder="" required autocomplete="off">
+                    <label for="fractal_dimension_se">Fractal Dimension Standard Error</label>
+                    <input type="text" class="form-control" id="fractal_dimension_se" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="radius_worst">RADIUS WORST</label>
-                    <input type="text" class="form-control" id="radius_worst" placeholder="" required autocomplete="off">
+                    <label for="radius_worst">Radius Worst</label>
+                    <input type="text" class="form-control" id="radius_worst" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="texture_worst">TEXTURE WORST</label>
-                    <input type="text" class="form-control" id="texture_worst" placeholder="" required autocomplete="off">
+                    <label for="texture_worst">Texture Worst (Standard Deviation of Gray-Scale Values)</label>
+                    <input type="text" class="form-control" id="texture_worst" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="perimeter_worst">PERIMETER WORST</label>
-                    <input type="text" class="form-control" id="perimeter_worst" placeholder="" required autocomplete="off">
+                    <label for="perimeter_worst">Perimeter Worst</label>
+                    <input type="text" class="form-control" id="perimeter_worst" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="area_worst">AREA WORST</label>
-                    <input type="text" class="form-control" id="area_worst" placeholder="" required autocomplete="off">
+                    <label for="area_worst">Area Worst</label>
+                    <input type="text" class="form-control" id="area_worst" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="smoothness_worst">SMOOTHNESS WORST</label>
-                    <input type="text" class="form-control" id="smoothness_worst" placeholder="" required autocomplete="off">
+                    <label for="smoothness_worst">Smoothness Worst (Local Variation In Radius Lengths)</label>
+                    <input type="text" class="form-control" id="smoothness_worst" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="compactness_worst">COMPACTNESS WORST</label>
-                    <input type="text" class="form-control" id="compactness_worst" placeholder="" required autocomplete="off">
+                    <label for="compactness_worst">Compactness Worst (perimeter^2 / area - 1.0)</label>
+                    <input type="text" class="form-control" id="compactness_worst" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="concavity_worst">CONCAVITY WORST</label>
-                    <input type="text" class="form-control" id="concavity_worst" placeholder="" required autocomplete="off">
+                    <label for="concavity_worst">Concavity Worst (Severity of Concave Portions of the Contour)</label>
+                    <input type="text" class="form-control" id="concavity_worst" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="concave_points_worst">CONCAVE POINTS WORST</label>
-                    <input type="text" class="form-control" id="concave_points_worst" placeholder="" required autocomplete="off">
+                    <label for="concave_points_worst">Concave Points Worst (Number of Concave Portions of the Contour)</label>
+                    <input type="text" class="form-control" id="concave_points_worst" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="symmetry_worst">SYMMETRY WORST</label>
-                    <input type="text" class="form-control" id="symmetry_worst" placeholder="" required autocomplete="off">
+                    <label for="symmetry_worst">Symmetry Worst</label>
+                    <input type="text" class="form-control" id="symmetry_worst" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="fractal_dimension_worst">FRACTAL DIMENSION WORST</label>
-                    <input type="text" class="form-control" id="fractal_dimension_worst" placeholder="" required autocomplete="off">
+                    <label for="fractal_dimension_worst">Fractal Dimension Worst</label>
+                    <input type="text" class="form-control" id="fractal_dimension_worst" placeholder="" autocomplete="off" required>
                 </div>
 
                 <button type="submit" value="Submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Submit</button>
@@ -213,6 +218,7 @@
             url:'{% url "predict_cancers:submit_prediction" %}',
             data:{
                 Patient_ID:$('#Patient_ID').val(),
+                Patient_Name:$('#Patient_Name').val(),
                 Patient_Age:$('#Patient_Age').val(),
                 Patient_Gender:$('#Patient_Gender').val(),
                 radius_mean:$('#radius_mean').val(),
@@ -252,6 +258,7 @@
                 document.forms["post-form"].reset();
                 document.getElementById("prediction").innerHTML = json['result']
                 document.getElementById("pi").innerHTML = json['Patient_ID']
+                document.getElementById("pn").innerHTML = json['Patient_Name']
                 document.getElementById("sw").innerHTML = json['Patient_Age']
                 document.getElementById("pl").innerHTML = json['Patient_Gender']
                 document.getElementById("radius_meano").innerHTML = json['radius_mean']
