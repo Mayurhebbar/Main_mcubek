@@ -20,11 +20,11 @@
                 <div>Patient Gender: <span id="pl"></span></div>
                 <div>Pregnancies: <span id="prg"></span></div>
                 <div>Glucose: <span id="glc"></span></div>
-                <div>BloodPressure: <span id="bp"></span></div>
-                <div>SkinThickness: <span id="sk"></span></div>
+                <div>Blood Pressure: <span id="bp"></span></div>
+                <div>Skin Thickness: <span id="sk"></span></div>
                 <div>Insulin: <span id="il"></span></div>
                 <div>BMI: <span id="bm"></span></div>
-                <div>DiabetesPedigreeFunction: <span id="dpf"></span></div>
+                <div>Diabetes Pedigree Function: <span id="dpf"></span></div>
                 <h5 class="pt-3">Disease Prediction:</h5>
                 <div id="prediction"></div>
             </div>
@@ -43,15 +43,15 @@
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="Patient_ID">Patient ID</label>
-                    <input type="text" class="form-control" id="Patient_ID" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="Patient_ID" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="Patient_Age">Patient Age</label>
-                    <input type="text" class="form-control" id="Patient_Age" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="Patient_Age" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="Patient_Name">Patient Name</label>
-                    <input type="text" class="form-control" id="Patient_Name" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="Patient_Name" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="Patient_Gender">Patient Gender</label>
@@ -62,31 +62,31 @@
                 </div>
                 <div class="form-group">
                     <label for="pregnancies">Pregnancies</label>
-                    <input type="text" class="form-control" id="pregnancies" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="pregnancies" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="glucose">Glucose</label>
-                    <input type="text" class="form-control" id="glucose" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="glucose" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="bloodPressure">BloodPressure</label>
-                    <input type="text" class="form-control" id="bloodPressure" placeholder="" required autocomplete="off">
+                    <label for="bloodPressure">Blood Pressure</label>
+                    <input type="text" class="form-control" id="bloodPressure" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="skinThickness">SkinThickness</label>
-                    <input type="text" class="form-control" id="skinThickness" placeholder="" required autocomplete="off">
+                    <label for="skinThickness">Skin Thickness</label>
+                    <input type="text" class="form-control" id="skinThickness" placeholder="" autocomplete="off" required>
                 </div>
                  <div class="form-group">
                     <label for="insulin">Insulin</label>
-                    <input type="text" class="form-control" id="insulin" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="insulin" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="bmi">BMI</label>
-                    <input type="text" class="form-control" id="bmi" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="bmi" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <label for="diabetesPedigreeFunction">DiabetesPedigreeFunction</label>
-                    <input type="text" class="form-control" id="diabetesPedigreeFunction" placeholder="" required autocomplete="off">
+                    <label for="diabetesPedigreeFunction">Diabetes Pedigree Function</label>
+                    <input type="text" class="form-control" id="diabetesPedigreeFunction" placeholder="" autocomplete="off" required>
                 </div>
                 <button type="submit" value="Submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Submit</button>
             </form>

@@ -11,6 +11,7 @@ from predict_cancers.models import PredResults_cancers
 from predict_kidney.models import PredResults_kidney
 from predict_diabetes.models import PredResults_diabetes
 from django.views.decorators.csrf import csrf_exempt
+from django.core.files import File
 
 
 def admin_home(request):
@@ -55,10 +56,6 @@ def add_doctor_save(request):
         gender = request.POST.get("gender")
         ph_no = request.POST.get("ph_no")
         qualification = request.POST.get("qualification")
-        profile_pic = request.FILES['profile_pic']
-        fs = FileSystemStorage()
-        filename = fs.save(profile_pic.name, profile_pic)
-        profile_pic_url = fs.url(filename)
 
         try:
             user = CustomUser.objects.create_user(username=username, password=password, email=email,
@@ -71,8 +68,17 @@ def add_doctor_save(request):
             user.doctors.blood_group = blood_group
             user.doctors.doctor_num = doctor_num
             user.doctors.qualification = qualification
-            user.doctors.profile_pic = profile_pic_url
-            user.save()
+            try:
+                profile_pic = request.FILES['profile_pic']
+                fs = FileSystemStorage()
+                filename = fs.save(profile_pic.name, profile_pic)
+                profile_pic_url = fs.url(filename)
+                user.doctors.profile_pic = profile_pic_url
+                user.save()
+            except:
+                user.save()
+                messages.success(request, "Successfully Added Details; But, Profile Picture Is Not Available")
+                return HttpResponseRedirect(reverse("home:add_doctor"))
             messages.success(request, "Successfully Added Doctor")
             return HttpResponseRedirect(reverse("home:add_doctor"))
         except:
