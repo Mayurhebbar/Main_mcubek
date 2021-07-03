@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'predict_heart',
     'predict_kidney',
     'predict_cancers',
+
     'predict_diabetes',
     'home',
 ]

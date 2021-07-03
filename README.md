@@ -27,3 +27,5 @@ python manage.py createsuperuser
 8. Run the server
 
 python manage.py runserver
+# mcubek
+Disease Prediction
