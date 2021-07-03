@@ -16,14 +16,13 @@
                 <h5>Prediction Input:</h5>
                 <div>Patient ID: <span id="pi"></span></div>
                 <div>Patient Age: <span id="sw"></span></div>
-                <div>Patient Name: <span id="pn"></span></div>
                 <div>Patient Gender: <span id="pl"></span></div>
-                <div>Pregnancies ( Number of times pregnant): <span id="prg"></span></div>
-                <div>Glucose (Blood Sugar): <span id="glc"></span></div>
+                <div>Pregnancies: <span id="prg"></span></div>
+                <div>Glucose: <span id="glc"></span></div>
                 <div>BloodPressure: <span id="bp"></span></div>
                 <div>SkinThickness: <span id="sk"></span></div>
-                <div>Insulin (2-Hour serum insulin): <span id="il"></span></div>
-                <div>BMI (Body Mass Index ): <span id="bm"></span></div>
+                <div>Insulin: <span id="il"></span></div>
+                <div>BMI: <span id="bm"></span></div>
                 <div>DiabetesPedigreeFunction: <span id="dpf"></span></div>
                 <h5 class="pt-3">Disease Prediction:</h5>
                 <div id="prediction"></div>
@@ -48,10 +47,6 @@
                 <div class="form-group">
                     <label for="Patient_Age">Patient Age</label>
                     <input type="text" class="form-control" id="Patient_Age" placeholder="" required autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label for="Patient_Name">Patient Name</label>
-                    <input type="text" class="form-control" id="Patient_Name" placeholder="" required autocomplete="off">
                 </div>
                 <div class="form-group">
                     <label for="Patient_Gender">Patient Gender</label>
@@ -103,7 +98,6 @@
             data:{
                 Patient_ID:$('#Patient_ID').val(),
                 Patient_Age:$('#Patient_Age').val(),
-                Patient_Name:$('#Patient_Name').val(),
                 Patient_Gender:$('#Patient_Gender').val(),
                 pregnancies:$('#pregnancies').val(),
                 glucose:$('#glucose').val(),
@@ -120,7 +114,6 @@
                 document.getElementById("prediction").innerHTML = json['result']
                 document.getElementById("pi").innerHTML = json['Patient_ID']
                 document.getElementById("sw").innerHTML = json['Patient_Age']
-                document.getElementById("pn").innerHTML = json['Patient_Name']
                 document.getElementById("pl").innerHTML = json['Patient_Gender']
                 document.getElementById("prg").innerHTML = json['pregnancies']
                 document.getElementById("glc").innerHTML = json['glucose']
