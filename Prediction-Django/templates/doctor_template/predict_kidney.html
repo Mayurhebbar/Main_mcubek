@@ -41,6 +41,9 @@
                 <div>Appetite: <span id="appeto"></span></div>
                 <div>Pedal Edema: <span id="peo"></span></div>
                 <div>Anemia: <span id="aneo"></span></div>
+                <h5 class="pt-3">Probability of Risk : </h5>
+                <p>(Threshold set for the each Algorithm to decide if the Person is At risk or Not is 50%)</p>
+                <div id="prediction_percentage"></div>
                 <h5 class="pt-3">Disease Prediction:</h5>
                 <div id="prediction"></div>
             </div>
@@ -215,6 +218,7 @@
             },
             success:function(json) {
                 document.forms["post-form"].reset();
+                document.getElementById("prediction_percentage").innerHTML = json['prediction_percentage']
                 document.getElementById("prediction").innerHTML = json['result']
                 document.getElementById("pi").innerHTML = json['Patient_ID']
                 document.getElementById("pn").innerHTML = json['Patient_Name']

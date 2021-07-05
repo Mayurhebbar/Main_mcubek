@@ -104,11 +104,14 @@ Thal (Defect Type from Thallium Test) : {% if predict_heart.Thal == 0 %}
     Reversable Defect
  {% endif %} <br>
 <br>
-Final Prediction :  {% if predict_heart.Heart_Disease == "0" %}
-                            No Risk
+<b>Result : </b><br>
+    Probability of Risk : <b>{{ predict_heart.probability_percentage_heart | floatformat:"-3" }}%</b><br>
+    Disease Prediction :
+                  {% if predict_heart.Heart_Disease == "0" %}
+                        <b>Patient might not be At Risk </b>
                         {% else %}
-                            <b>At Risk<b>
-                        {% endif %}
+                         <b>Patient might be At Risk </b>
+                  {% endif %}
 </div>
 </body>
 </html>

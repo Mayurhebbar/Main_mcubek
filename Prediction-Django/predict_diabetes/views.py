@@ -72,9 +72,9 @@ def predict_chances_diabetes(request):
         Diabetes_Disease = result[0]
 
         if Diabetes_Disease == 0:
-            disease = "No Risk"
+            disease = "Patient might not be At Risk"
         else:
-            disease = "At Risk"
+            disease = "Patient might be At Risk"
 
         patients_lists = PredResults_diabetes.objects.all()
         ID_list = []
@@ -87,7 +87,7 @@ def predict_chances_diabetes(request):
                                        Patient_Gender=Patient_Gender,
                                        Diabetes_Disease=Diabetes_Disease, Pregnancies=Pregnancies, Glucose=Glucose, BloodPressure=BloodPressure,
                                        SkinThickness=SkinThickness, Insulin=Insulin,
-                                       BMI=BMI, DiabetesPedigreeFunction=DiabetesPedigreeFunction, consulted_doctor=consulted_doctor)
+                                       BMI=BMI, DiabetesPedigreeFunction=DiabetesPedigreeFunction, consulted_doctor=consulted_doctor, probability_percentage_diabetes=probab_perc)
             user.save()
         else:
             update_list = PredResults_diabetes.objects.get(Patient_ID=Patient_ID)
@@ -101,6 +101,7 @@ def predict_chances_diabetes(request):
             update_list.BMI = BMI
             update_list.DiabetesPedigreeFunction = DiabetesPedigreeFunction
             update_list.consulted_doctor = consulted_doctor
+            update_list.probability_percentage_diabetes = probab_perc
             update_list.save()
         if Patient_Gender == 0:
             Patient_Gender = "Female"
@@ -131,7 +132,7 @@ def predict_chances_diabetes(request):
         else:
             BMI = "Over Weight-Risk is High for Occurance of Diabetes"
 
-        return JsonResponse({'result': disease, 'Patient_ID': Patient_ID, 'Patient_Age': Patient_Age, 'Patient_Name': Patient_Name,
+        return JsonResponse({'result': disease, 'prediction_percentage': probab_perc, 'Patient_ID': Patient_ID, 'Patient_Age': Patient_Age, 'Patient_Name': Patient_Name,
                              'Patient_Gender': Patient_Gender, 'pregnancies': Pregnancies, 'glucose': Glucose, 'bloodPressure': BloodPressure,
                              'skinThickness': SkinThickness, 'insulin': Insulin, 'bmi': BMI, 'diabetesPedigreeFunction': DiabetesPedigreeFunction
                             },

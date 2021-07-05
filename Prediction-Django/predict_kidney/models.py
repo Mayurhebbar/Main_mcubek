@@ -15,7 +15,7 @@ class PredResults_kidney(models.Model):
     BGR = models.IntegerField()
     BU = models.IntegerField()
     SC = models.IntegerField()
-    HEMO = models.IntegerField()
+    HEMO = models.FloatField()
     HTN = models.IntegerField()
     DM = models.IntegerField()
     APPET = models.IntegerField()
@@ -32,6 +32,7 @@ class PredResults_kidney(models.Model):
     PE = models.FloatField()
     ANE = models.FloatField()
     Kidney_Disease = models.CharField(max_length=30)
+    probability_percentage_kidney = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 

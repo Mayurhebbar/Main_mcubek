@@ -102,9 +102,9 @@ def predict_chances_cancers(request):
         print(Cancer_Disease)
 
         if Cancer_Disease == 0:
-            disease = "Benign (Indicates Absence of Cancer Cells)"
+            disease = "Benign (Indicates Absence of Cancer Cells) i.e Patient might not be At Risk"
         else:
-            disease = "Malignant (Indicates Presence of Cancer Cells)"
+            disease = "Malignant (Indicates Presence of Cancer Cells) i.e Patient might be At Risk"
 
         patients_lists = PredResults_cancers.objects.all()
         ID_list = []
@@ -124,7 +124,7 @@ def predict_chances_cancers(request):
                                      Area_Worst=Area_Worst, Smoothness_Worst=Smoothness_Worst,
                                      Compactness_Worst=Compactness_Worst, Concavity_Worst=Concavity_Worst,
                                      Concave_Points_Worst=Concave_Points_Worst, Symmetry_Worst=Symmetry_Worst,
-                                     Fractal_Dimension_Worst=Fractal_Dimension_Worst, consulted_doctor=consulted_doctor)
+                                     Fractal_Dimension_Worst=Fractal_Dimension_Worst, consulted_doctor=consulted_doctor,probability_percentage_cancer=probab_perc)
             user.save()
         else:
             update_list = PredResults_cancers.objects.get(Patient_ID=Patient_ID)
@@ -161,6 +161,7 @@ def predict_chances_cancers(request):
             update_list.Symmetry_Worst = Symmetry_Worst
             update_list.Fractal_Dimension_Worst = Fractal_Dimension_Worst
             update_list.consulted_doctor = consulted_doctor
+            update_list.probability_percentage_cancer = probab_perc
             update_list.save()
 
         if Patient_Gender == 0:
@@ -170,7 +171,7 @@ def predict_chances_cancers(request):
 
 
 
-        return JsonResponse({'result': disease, 'Patient_ID': Patient_ID, 'Patient_Name': Patient_Name, 'Patient_Age': Patient_Age,
+        return JsonResponse({'result': disease, 'prediction_percentage': probab_perc, 'Patient_ID': Patient_ID, 'Patient_Name': Patient_Name, 'Patient_Age': Patient_Age,
                              'Patient_Gender': gender, 'radius_mean': Radius_Mean, 'texture_mean': Texture_Mean, 'perimeter_mean': Perimeter_Mean,
                              'area_mean': Area_Mean, 'smoothness_mean': Smoothness_Mean, 'compactness_mean': Compactness_Mean, 'concavity_mean': Concavity_Mean,'concave_points_mean': Concave_Points_Mean, 'symmetry_mean': Symmetry_Mean,
                              'fractal_dimension_mean': Fractal_Dimension_Mean, 'radius_se': Radius_Se, 'texture_se': Texture_Se, 'perimeter_se': Perimeter_Se,

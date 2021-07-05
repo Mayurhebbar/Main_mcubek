@@ -89,10 +89,13 @@ Patient Age : {{ predict_cancers.Patient_Age }} <br>
  Symmetry Worst (Benign Cases:Below 0.17, Malignant Cases:0.17 and above) : {{ predict_cancers.Symmetry_Worst }} <br>
  Fractal Dimension Worst (Benign Cases:Below 0.06, Malignant Cases:0.06 and above) : {{ predict_cancers.Fractal_Dimension_Worst }} <br>
 <br>
-Final Prediction :  {% if predict_cancers.Cancer_Disease == "0" %}
-                          <b>Benign (Indicates Absence of Cancer Cells)</b>
+<b>Result : </b><br>
+    Probability of Risk : <b>{{ predict_cancers.probability_percentage_cancer | floatformat:"-3"  }}%</b><br>
+    Disease Prediction :
+                    {% if predict_cancers.Cancer_Disease == "0" %}
+                            <b>Benign (Indicates Absence of Cancer Cells)  i.e Patient might not be At Risk</b>
                         {% else %}
-                            <b>Malignant (Indicates Presence of Cancer Cells)</b>
+                            <b>Malignant (Indicates Presence of Cancer Cells) i.e Patient might be At Risk</b>
                         {% endif %}
 </div>
 </body>

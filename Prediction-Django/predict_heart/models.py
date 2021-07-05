@@ -20,6 +20,7 @@ class PredResults_heart(models.Model):
     CA = models.FloatField()
     Thal = models.IntegerField()
     Heart_Disease = models.CharField(max_length=30)
+    probability_percentage_heart = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
