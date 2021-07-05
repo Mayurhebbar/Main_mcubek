@@ -57,9 +57,17 @@ def predict_chances_diabetes(request):
         #Deserialization of objects
         # Unpickle model
         model = joblib.load("diabetes_model")
+        
         result = model.predict(
             [[Pregnancies, Glucose, BloodPressure, SkinThickness,
               Insulin, BMI, DiabetesPedigreeFunction, Patient_Age]])
+        
+        probability = model.predict_proba([[Pregnancies, Glucose, BloodPressure, SkinThickness,
+              Insulin, BMI, DiabetesPedigreeFunction, Patient_Age]])
+
+        probab_perc=round(probability[0][1]*100,3)
+
+        print(probab_perc)
 
         Diabetes_Disease = result[0]
 
