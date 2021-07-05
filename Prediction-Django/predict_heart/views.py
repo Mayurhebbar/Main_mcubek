@@ -97,6 +97,12 @@ def predict_chances_heart(request):
         # Predict the output using heart_model ML deserialize object
         result = model_test.predict(array_input)
 
+        probability = model_test.predict_proba(array_input)
+
+        probab_perc=round(probability[0][1]*100,3)
+
+        print(probab_perc)
+
         # Results obtained from the deserialized object(ML object)
         Heart_Disease = result[0]
 

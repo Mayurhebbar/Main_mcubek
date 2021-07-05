@@ -77,6 +77,12 @@ def predict_chances_kidney(request):
         model = joblib.load("kidney_model")
         result = model.predict([[Patient_Age, BP, AL, PCC, BGR, BU,
                                  SC, HEMO, PCV, HTN, DM, APPET]])
+        
+        probability = model.predict_proba([[Patient_Age,BP,AL,PCC,BGR,BU,SC,HEMO,PCV,HTN,DM,APPET]])
+
+        probab_perc=round(probability[0][1]*100,3)
+
+        print(probab_perc)
 
         Kidney_Disease = int(result[0])
 

@@ -80,12 +80,23 @@ def predict_chances_cancers(request):
         #Deserailize the joblib object and READY TO PREDICT THE RESULT
         # Unpickle model
         model = joblib.load("Cancers_model")
+        
         result = model.predict(
             [[Radius_Mean, Texture_Mean, Perimeter_Mean, Area_Mean,
               Smoothness_Mean, Compactness_Mean, Concavity_Mean, Concave_Points_Mean, Symmetry_Mean, Fractal_Dimension_Mean, Radius_Se, Texture_Se,
               Perimeter_Se, Area_Se, Smoothness_Se, Compactness_Se, Concavity_Se, Concave_Points_Se, Symmetry_Se, Fractal_Dimension_Se,
               Radius_Worst, Texture_Worst, Perimeter_Worst, Area_Worst, Smoothness_Worst, Compactness_Worst, Concavity_Worst, Concave_Points_Worst,
               Symmetry_Worst, Fractal_Dimension_Worst]])
+
+        probability = model.predict_proba([[Radius_Mean, Texture_Mean, Perimeter_Mean, Area_Mean,
+              Smoothness_Mean, Compactness_Mean, Concavity_Mean, Concave_Points_Mean, Symmetry_Mean, Fractal_Dimension_Mean, Radius_Se, Texture_Se,
+              Perimeter_Se, Area_Se, Smoothness_Se, Compactness_Se, Concavity_Se, Concave_Points_Se, Symmetry_Se, Fractal_Dimension_Se,
+              Radius_Worst, Texture_Worst, Perimeter_Worst, Area_Worst, Smoothness_Worst, Compactness_Worst, Concavity_Worst, Concave_Points_Worst,
+              Symmetry_Worst, Fractal_Dimension_Worst]])
+
+        probab_perc=round(probability[0][1]*100,3)
+
+        print(probab_perc)
 
         Cancer_Disease = result[0]
         print(Cancer_Disease)
