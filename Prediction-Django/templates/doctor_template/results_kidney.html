@@ -14,6 +14,7 @@
                     <th scope="col">Patient Name</th>
                     <th scope="col">Patient Age</th>
                     <th scope="col">Patient Gender</th>
+                    <th scope="col">Risk Probability</th>
                     <th scope="col">Prediction</th>
                     <th scope="col"></th>
                 </tr>
@@ -30,10 +31,11 @@
                         {% else %}
                             <td>Male</td>
                         {% endif %}
+                        <td>{{ data.probability_percentage_kidney | floatformat:"-3"  }}%</td>
                         {% if data.Kidney_Disease == '0' %}
-                            <td>No Risk  ( {{ data.Kidney_Disease }} )</td>
+                            <td>Might not be At Risk</td>
                         {% else %}
-                            <td>At Risk ( {{ data.Kidney_Disease }} )</td>
+                            <td>Might be At Risk</td>
                         {% endif %}
                         <td><a href="{% url 'predict_kidney:predict_kidney-pdf-view' data.Patient_ID %}"><button class="btn btn-dark">Download Report</button></a></td>
                     </tr>

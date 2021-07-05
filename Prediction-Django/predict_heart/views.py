@@ -107,9 +107,9 @@ def predict_chances_heart(request):
         Heart_Disease = result[0]
 
         if Heart_Disease == 0:
-            disease = "No Risk"
+            disease = "Patient might not be At Risk"
         else:
-            disease = "At Risk"
+            disease = "Patient might be At Risk"
 
         # PredResults.objects.create(Patient_ID=Patient_ID, Patient_Age=Patient_Age, Patient_Gender=Patient_Gender,
         #                          Heart_Disease=Heart_Disease)
@@ -125,7 +125,7 @@ def predict_chances_heart(request):
                                Heart_Disease=Heart_Disease, CP=CP, Trestbps=Trestbps, FBS=FBS,
                                Cholesterol=Cholesterol, Restecg=Restecg,
                                Thalach=Thalach, Exang=Exang, Oldpeak=Oldpeak, Slope=Slope, CA=CA,
-                               Thal=Thal, consulted_doctor=consulted_doctor)
+                               Thal=Thal, consulted_doctor=consulted_doctor, probability_percentage_heart=probab_perc)
             user.save()
         else:
             update_list = PredResults_heart.objects.get(Patient_ID=Patient_ID)
@@ -143,6 +143,7 @@ def predict_chances_heart(request):
             update_list.CA = CA
             update_list.Thal = Thal
             update_list.consulted_doctor = consulted_doctor
+            update_list.probability_percentage_heart = probab_perc
             update_list.save()
 
         if Patient_Gender == 0:
@@ -191,7 +192,7 @@ def predict_chances_heart(request):
             slope_value = "Downsloping"
 
         return JsonResponse(
-            {'result': disease, 'Patient_ID': Patient_ID, 'Patient_Name': Patient_Name, 'Patient_Age': Patient_Age,
+            {'result': disease, 'prediction_percentage': probab_perc, 'Patient_ID': Patient_ID, 'Patient_Name': Patient_Name, 'Patient_Age': Patient_Age,
              'Patient_Gender': gender, 'cp': Chest_Pain, 'trestbps': Trestbps, 'chol': Cholesterol,
              'restecg': rest, 'thalach': Thalach, 'exang': exang_value, 'oldpeak': Oldpeak, 'slope': slope_value,
              'thal': thal_value, 'fbs': fasting, 'ca': CA},

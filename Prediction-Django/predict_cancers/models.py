@@ -39,6 +39,7 @@ class PredResults_cancers(models.Model):
     Symmetry_Worst = models.FloatField()
     Fractal_Dimension_Worst = models.FloatField()
     Cancer_Disease = models.CharField(max_length=30)
+    probability_percentage_cancer = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 

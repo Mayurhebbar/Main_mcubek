@@ -14,6 +14,7 @@
                     <th scope="col">Patient Name</th>
                     <th scope="col">Patient Gender</th>
                     <th scope="col">Patient Age</th>
+                    <th scope="col">Risk Probability</th>
                     <th scope="col">Prediction</th>
                     <th scope="col"></th>
                 </tr>
@@ -30,10 +31,11 @@
                             <td>Male</td>
                         {% endif %}
                         <td>{{ data.Patient_Age }}</td>
+                        <td>{{ data.probability_percentage_heart | floatformat:"-3"  }}%</td>
                         {% if data.Heart_Disease == "0" %}
-                            <td>No Risk  ( {{ data.Heart_Disease }} )</td>
+                            <td>Might not be At Risk</td>
                         {% else %}
-                            <td>At Risk ( {{ data.Heart_Disease }} )</td>
+                            <td>Might be At Risk</td>
                         {% endif %}
                         <td><a href="{% url 'predict_heart:predict_heart-pdf-view' data.Patient_ID %}"><button class="btn btn-dark">Download Report</button></a></td>
                     </tr>

@@ -132,11 +132,14 @@ Red Blood Cell Count : {{ predict_kidney.RC }} millions/cmm <br>
 {% endif %}
 <br>
 <br>
-Final Prediction :  {% if predict_kidney.Kidney_Disease == '0' %}
-                    <b>No Risk</b>
-                    {% else %}
-                    <b>At Risk</b>
-                    {% endif %}
+<b>Result : </b><br>
+    Probability of Risk : <b>{{ predict_kidney.probability_percentage_kidney | floatformat:"-3"  }}%</b><br>
+    Disease Prediction :
+                  {% if predict_kidney.Kidney_Disease == "0" %}
+                        <b>Patient might not be At Risk </b>
+                        {% else %}
+                         <b>Patient might be At Risk </b>
+                  {% endif %}
 </div>
 </body>
 </html>

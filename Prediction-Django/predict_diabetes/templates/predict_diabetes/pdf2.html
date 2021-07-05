@@ -85,11 +85,14 @@ Date : {{ predict_diabetes.updated_at | date:'d-m-Y' }}
     Over Weight-Risk is High for Occurance of Diabetes
     {% endif %} <br>
     Diabetes Pedigree Function : {{ predict_diabetes.DiabetesPedigreeFunction | floatformat }} <br>
-    Final Prediction :  {% if predict_diabetes.Diabetes_Disease == "0" %}
-                            <b>No Risk</b>
-                            {% else %}
-                               <b>At Risk</b>
-                                {% endif %}
+<b>Result : </b><br>
+    Probability of Risk : <b>{{ predict_diabetes.probability_percentage_diabetes | floatformat:"-3"  }}%</b><br>
+    Disease Prediction :
+                  {% if predict_diabetes.Diabetes_Disease == "0" %}
+                        <b>Patient might not be At Risk </b>
+                        {% else %}
+                         <b>Patient might be At Risk </b>
+                  {% endif %}
 </div>
 </body>
 </html>

@@ -14,6 +14,7 @@
                     <th scope="col">Patient Name</th>
                     <th scope="col">Patient Age</th>
                     <th scope="col">Patient Gender</th>
+                    <th scope="col">Risk Probability</th>
                     <th scope="col">Prediction</th>
                     <th scope="col"></th>
                 </tr>
@@ -30,10 +31,11 @@
                             <td>Male</td>
                         {% endif %}
                         <td>{{ data.Patient_Age }}</td>
+                        <td>{{ data.probability_percentage_cancer | floatformat:"-3"  }}%</td>
                         {% if data.Cancer_Disease == "0" %}
-                            <td>Benign (Indicates Absence of Cancer Cells)  ( {{ data.Cancer_Disease }} )</td>
+                            <td>Benign (Indicates Absence of Cancer Cells)  i.e Patient might not be At Risk</td>
                         {% else %}
-                            <td>Malignant (Indicates Presence of Cancer Cells) ( {{ data.Cancer_Disease }} )</td>
+                            <td>Malignant (Indicates Presence of Cancer Cells i.e Patient might be At Risk)</td>
                         {% endif %}
                         <td><a href="{% url 'predict_cancers:predict_cancers-pdf-view' data.Patient_ID %}"><button class="btn btn-dark">Download Report</button></a></td>
                     </tr>
