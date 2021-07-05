@@ -31,7 +31,7 @@
                             <td>Male</td>
                         {% endif %}
                         <td>{{ data.Patient_Age }}</td>
-                        <td>{{ data.probability_percentage_diabetes | floatformat:"-3"  }}</td>
+                        <td>{{ data.probability_percentage_diabetes | floatformat:"-3"  }}%</td>
                         {% if data.Diabetes_Disease == "0" %}
                           <td>Might not be At Risk</td>
                         {% else %}
