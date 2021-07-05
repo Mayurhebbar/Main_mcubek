@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Disease Report</title>
+    <style type="text/css">
+            body {
+                margin: 20px;
+                font-weight: 200;
+                font-size: 14px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+        </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="header">
+<p class="title">Cancer Disease Report</p>
+         <hr class="hrItem">
+    </div>
+    Treated By: {{ doctor_details.first_name }} {{ doctor_details.last_name}}, {{ doctor_details_new.qualification }} ( {{ doctor_details_new.specialization }} Specialization ) <br>
+    Date : {{ predict_cancers.updated_at | date:'d-m-Y' }}
+</div>
+<div class="details">
+Patient ID : {{ predict_cancers.Patient_ID }} <br>
+Patient Name : {{ predict_cancers.Patient_Name }} <br>
+Patient Age : {{ predict_cancers.Patient_Age }} <br>
+ {% if predict_cancers.Patient_Gender == 0 %}
+    Patient Gender : Female
+ {% else %}
+     Patient Gender : Male
+ {% endif %}
+ <br>
+ Radius Mean (Benign Cases:Below 15, Malignant Cases:15 and above) : {{ predict_cancers.Radius_Mean }} <br>
+ Texture Mean (Benign Cases:Below 20, Malignant Cases:20 and above) : {{ predict_cancers.Texture_Mean }} <br>
+ Perimeter Mean (Benign Cases:Below 90, Malignant Cases:90 and above) : {{ predict_cancers.Perimeter_Mean }} <br>
+ Area Mean (Benign Cases:Below 750, Malignant Cases:750 and above) : {{ predict_cancers.Area_Mean }} <br>
+ Smoothness Mean (Benign Cases:Below 0.100, Malignant Cases:0.100 and above) : {{ predict_cancers.Smoothness_Mean }} <br>
+ Compactness Mean (Benign Cases:Below 0.1, Malignant Cases:0.1 and above) : {{ predict_cancers.Compactness_Mean }} <br>
+ Concavity Mean (Benign Cases:Below 0.1, Malignant Cases:0.1 and above) : {{ predict_cancers.Concavity_Mean }} <br>
+ Concave Points Mean (Benign Cases:Below 0.075, Malignant Cases:0.075 and above) : {{ predict_cancers.Concave_Points_Mean }} <br>
+ Symmetry Mean (Benign Cases:Below 0.17, Malignant Cases:0.17 and above) : {{ predict_cancers.Symmetry_Mean }} <br>
+ Fractal Dimension Mean (Benign Cases:Below 0.06, Malignant Cases:0.06 and above) : {{ predict_cancers.Fractal_Dimension_Mean }} <br>
+ Radius Standard Error (Benign Cases:Below 15, Malignant Cases:15 and above) : {{ predict_cancers.Radius_Se }} <br>
+ Texture Standard Error (Benign Cases:Below 20, Malignant Cases:20 and above) : {{ predict_cancers.Texture_Se }} <br>
+ Perimeter Standard Error (Benign Cases:Below 90, Malignant Cases:90 and above) : {{ predict_cancers.Perimeter_Se }} <br>
+ Area Standard Error (Benign Cases:Below 750, Malignant Cases:750 and above) : {{ predict_cancers.Area_Se }} <br>
+ Smoothness Standard Error (Benign Cases:Below 0.100, Malignant Cases:0.100 and above) : {{ predict_cancers.Smoothness_Se }} <br>
+ Compactness Standard Error (Benign Cases:Below 0.1, Malignant Cases:0.1 and above) : {{ predict_cancers.Compactness_Se }} <br>
+ Concavity Standard Error (Benign Cases:Below 0.1, Malignant Cases:0.1 and above) : {{ predict_cancers.Concavity_Se }} <br>
+ Concave Points Standard Error (Benign Cases:Below 0.075, Malignant Cases:0.075 and above) : {{ predict_cancers.Concave_Points_Se }} <br>
+ Symmetry Standard Error (Benign Cases:Below 0.17, Malignant Cases:0.17 and above) : {{ predict_cancers.Symmetry_Se }} <br>
+ Fractal Dimension Standard Error (Benign Cases:Below 0.06, Malignant Cases:0.06 and above) : {{ predict_cancers.Fractal_Dimension_Se }} <br>
+ Radius Worst (Benign Cases:Below 15, Malignant Cases:15 and above) : {{ predict_cancers.Radius_Worst }} <br>
+ Texture Worst (Benign Cases:Below 20, Malignant Cases:20 and above) : {{ predict_cancers.Texture_Worst }} <br>
+ Perimeter Worst (Benign Cases:Below 90, Malignant Cases:90 and above) : {{ predict_cancers.Perimeter_Worst }} <br>
+ Area Worst (Benign Cases:Below 750, Malignant Cases:750 and above) : {{ predict_cancers.Area_Worst }} <br>
+ Smoothness Worst (Benign Cases:Below 0.100, Malignant Cases:0.100 and above) : {{ predict_cancers.Smoothness_Worst }} <br>
+ Compactness Worst (Benign Cases:Below 0.1, Malignant Cases:0.1 and above) : {{ predict_cancers.Compactness_Worst }} <br>
+ Concavity Worst (Benign Cases:Below 0.1, Malignant Cases:0.1 and above) : {{ predict_cancers.Concavity_Worst }} <br>
+ Concave Points Worst (Benign Cases:Below 0.075, Malignant Cases:0.075 and above) : {{ predict_cancers.Concave_Points_Worst }} <br>
+ Symmetry Worst (Benign Cases:Below 0.17, Malignant Cases:0.17 and above) : {{ predict_cancers.Symmetry_Worst }} <br>
+ Fractal Dimension Worst (Benign Cases:Below 0.06, Malignant Cases:0.06 and above) : {{ predict_cancers.Fractal_Dimension_Worst }} <br>
+<br>
+<b>Result : </b><br>
+    Probability of Risk : <b>{{ predict_cancers.probability_percentage_cancer | floatformat:"-3"  }}%</b><br>
+    Disease Prediction :
+                    {% if predict_cancers.Cancer_Disease == "0" %}
+                            <b>Benign (Indicates Absence of Cancer Cells)  i.e Patient might not be At Risk</b>
+                        {% else %}
+                            <b>Malignant (Indicates Presence of Cancer Cells) i.e Patient might be At Risk</b>
+                        {% endif %}
+</div>
+</body>
+</html>

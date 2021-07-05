@@ -2,7 +2,7 @@
 {% load static %}
 {% block main %}
 <!-- Modal -->
-<section class="content" style="background-color: lightskyblue; height: 375vh;">
+<section class="content" style="background-color: lightskyblue; height: 400vh;">
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -41,6 +41,9 @@
                 <div>Appetite: <span id="appeto"></span></div>
                 <div>Pedal Edema: <span id="peo"></span></div>
                 <div>Anemia: <span id="aneo"></span></div>
+                <h5 class="pt-3">Probability of Risk : </h5>
+                <p>(Threshold set for the each Algorithm to decide if the Person is At risk or Not is 50%)</p>
+                <div id="prediction_percentage"></div>
                 <h5 class="pt-3">Disease Prediction:</h5>
                 <div id="prediction"></div>
             </div>
@@ -59,15 +62,15 @@
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="Patient_ID">Patient ID</label>
-                    <input type="text" class="form-control" id="Patient_ID" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="Patient_ID" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="Patient_Name">Patient Name</label>
-                    <input type="text" class="form-control" id="Patient_Name" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="Patient_Name" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="Patient_Age">Patient Age</label>
-                    <input type="text" class="form-control" id="Patient_Age" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="Patient_Age" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="Patient_Gender">Patient Gender</label>
@@ -78,95 +81,95 @@
                 </div>
                 <div class="form-group">
                     <label for="bp">Blood Pressure</label>
-                    <input type="text" class="form-control" id="bp" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="bp" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="sg">Specific Gravity</label>
-                    <input type="text" class="form-control" id="sg" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="sg" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="al">Albumin Level</label>
-                    <input type="text" class="form-control" id="al" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="al" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="su">Sugar Level</label>
-                    <input type="text" class="form-control" id="su" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="su" placeholder="" autocomplete="off" required>
                 </div>
                  <div class="form-group">
                     <label for="rbc">Red Blood Cells</label>
-                    <input type="text" class="form-control" id="rbc" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="rbc" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="pc">Pus Cell</label>
-                    <input type="text" class="form-control" id="pc" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="pc" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="pcc">Pus Cell Clumps</label>
-                    <input type="text" class="form-control" id="pcc" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="pcc" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="ba">Bacteria</label>
-                    <input type="text" class="form-control" id="ba" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="ba" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="bgr">Blood Glucose Random</label>
-                    <input type="text" class="form-control" id="bgr" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="bgr" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="bu">Blood Urea</label>
-                    <input type="text" class="form-control" id="bu" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="bu" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="sc">Serum Creatinine</label>
-                    <input type="text" class="form-control" id="sc" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="sc" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="sod">Sodium</label>
-                    <input type="text" class="form-control" id="sod" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="sod" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="pot">Potassium</label>
-                    <input type="text" class="form-control" id="pot" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="pot" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="hemo">Hemoglobin</label>
-                    <input type="text" class="form-control" id="hemo" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="hemo" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="pcv">Packed Cell Volume</label>
-                    <input type="text" class="form-control" id="pcv" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="pcv" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="wc">White Blood Cell Count</label>
-                    <input type="text" class="form-control" id="wc" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="wc" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="rc">Red Blood Cell Count</label>
-                    <input type="text" class="form-control" id="rc" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="rc" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="htn">Hypertension</label>
-                    <input type="text" class="form-control" id="htn" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="htn" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="dm">Diabetes Mellitus</label>
-                    <input type="text" class="form-control" id="dm" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="dm" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="cada">Coronary Artery Disease</label>
-                    <input type="text" class="form-control" id="cada" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="cada" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="appet">Appetite</label>
-                    <input type="text" class="form-control" id="appet" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="appet" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="pe">Pedal Edema</label>
-                    <input type="text" class="form-control" id="pe" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="pe" placeholder="" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="ane">Anemia</label>
-                    <input type="text" class="form-control" id="ane" placeholder="" required autocomplete="off">
+                    <input type="text" class="form-control" id="ane" placeholder="" autocomplete="off" required>
                 </div>
 
                 <button type="submit" value="Submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Submit</button>
@@ -215,6 +218,7 @@
             },
             success:function(json) {
                 document.forms["post-form"].reset();
+                document.getElementById("prediction_percentage").innerHTML = json['prediction_percentage']
                 document.getElementById("prediction").innerHTML = json['result']
                 document.getElementById("pi").innerHTML = json['Patient_ID']
                 document.getElementById("pn").innerHTML = json['Patient_Name']

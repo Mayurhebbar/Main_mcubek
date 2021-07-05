@@ -77,13 +77,19 @@ def predict_chances_kidney(request):
         model = joblib.load("kidney_model")
         result = model.predict([[Patient_Age, BP, AL, PCC, BGR, BU,
                                  SC, HEMO, PCV, HTN, DM, APPET]])
+        
+        probability = model.predict_proba([[Patient_Age,BP,AL,PCC,BGR,BU,SC,HEMO,PCV,HTN,DM,APPET]])
+
+        probab_perc=round(probability[0][1]*100,3)
+        probab_perc1 = str(probab_perc) + "%"
+        print(probab_perc)
 
         Kidney_Disease = int(result[0])
 
         if Kidney_Disease == 0:
-            disease = "No Risk"
+            disease = "Patient might not be At Risk"
         else:
-            disease = "At Risk"
+            disease = "Patient might be At Risk"
 
         patients_lists = PredResults_kidney.objects.all()
         ID_list = []
@@ -99,7 +105,7 @@ def predict_chances_kidney(request):
                                       BU=BU, SC=SC, HEMO=HEMO, HTN=HTN, DM=DM,
                                       APPET=APPET, SG=SG, SU=SU, RBC=RBC, PC=PC, BA=BA, SOD=SOD, POT=POT, WC=WC, RC=RC,
                                       CAD=CAD,
-                                      PE=PE, ANE=ANE, consulted_doctor=consulted_doctor)
+                                      PE=PE, ANE=ANE, consulted_doctor=consulted_doctor, probability_percentage_kidney=probab_perc)
             user.save()
         else:
             update_list = PredResults_kidney.objects.get(Patient_ID=Patient_ID)
@@ -130,6 +136,7 @@ def predict_chances_kidney(request):
             update_list.PE = PE
             update_list.ANE = ANE
             update_list.consulted_doctor = consulted_doctor
+            update_list.probability_percentage_kidney = probab_perc
             update_list.save()
 
 
@@ -189,7 +196,7 @@ def predict_chances_kidney(request):
             appet = "Good"
 
         return JsonResponse(
-            {'result': disease, 'Patient_ID': Patient_ID, 'Patient_Name': Patient_Name, 'Patient_Age': Patient_Age,
+            {'result': disease, 'prediction_percentage': probab_perc1, 'Patient_ID': Patient_ID, 'Patient_Name': Patient_Name, 'Patient_Age': Patient_Age,
              'Patient_Gender': gender, 'bp': BP, 'al': AL,
              'pcc': pcc, 'bgr': BGR, 'bu': BU, 'sc': SC, 'hemo': HEMO, 'pcv': PCV, 'htn': htn, 'dm': dm,
              'appet': appet, 'sg': SG, 'su': SU, 'rbc': rbc_value, 'pc': pc_value, 'ba': ba_value, 'sod': SOD, 'pot': POT, 'wc': WC,
