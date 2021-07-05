@@ -95,7 +95,7 @@ def predict_chances_cancers(request):
               Symmetry_Worst, Fractal_Dimension_Worst]])
 
         probab_perc=round(probability[0][1]*100,3)
-
+        probab_perc1 = str(probab_perc) + "%"
         print(probab_perc)
 
         Cancer_Disease = result[0]
@@ -171,7 +171,7 @@ def predict_chances_cancers(request):
 
 
 
-        return JsonResponse({'result': disease, 'prediction_percentage': probab_perc, 'Patient_ID': Patient_ID, 'Patient_Name': Patient_Name, 'Patient_Age': Patient_Age,
+        return JsonResponse({'result': disease, 'prediction_percentage': probab_perc1, 'Patient_ID': Patient_ID, 'Patient_Name': Patient_Name, 'Patient_Age': Patient_Age,
                              'Patient_Gender': gender, 'radius_mean': Radius_Mean, 'texture_mean': Texture_Mean, 'perimeter_mean': Perimeter_Mean,
                              'area_mean': Area_Mean, 'smoothness_mean': Smoothness_Mean, 'compactness_mean': Compactness_Mean, 'concavity_mean': Concavity_Mean,'concave_points_mean': Concave_Points_Mean, 'symmetry_mean': Symmetry_Mean,
                              'fractal_dimension_mean': Fractal_Dimension_Mean, 'radius_se': Radius_Se, 'texture_se': Texture_Se, 'perimeter_se': Perimeter_Se,

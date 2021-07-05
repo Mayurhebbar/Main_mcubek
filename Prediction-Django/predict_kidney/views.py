@@ -81,7 +81,7 @@ def predict_chances_kidney(request):
         probability = model.predict_proba([[Patient_Age,BP,AL,PCC,BGR,BU,SC,HEMO,PCV,HTN,DM,APPET]])
 
         probab_perc=round(probability[0][1]*100,3)
-
+        probab_perc1 = str(probab_perc) + "%"
         print(probab_perc)
 
         Kidney_Disease = int(result[0])
@@ -196,7 +196,7 @@ def predict_chances_kidney(request):
             appet = "Good"
 
         return JsonResponse(
-            {'result': disease, 'prediction_percentage': probab_perc, 'Patient_ID': Patient_ID, 'Patient_Name': Patient_Name, 'Patient_Age': Patient_Age,
+            {'result': disease, 'prediction_percentage': probab_perc1, 'Patient_ID': Patient_ID, 'Patient_Name': Patient_Name, 'Patient_Age': Patient_Age,
              'Patient_Gender': gender, 'bp': BP, 'al': AL,
              'pcc': pcc, 'bgr': BGR, 'bu': BU, 'sc': SC, 'hemo': HEMO, 'pcv': PCV, 'htn': htn, 'dm': dm,
              'appet': appet, 'sg': SG, 'su': SU, 'rbc': rbc_value, 'pc': pc_value, 'ba': ba_value, 'sod': SOD, 'pot': POT, 'wc': WC,

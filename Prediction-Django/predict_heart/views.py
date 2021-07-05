@@ -102,7 +102,7 @@ def predict_chances_heart(request):
         probab_perc=round(probability[0][1]*100,3)
 
         print(probab_perc)
-
+        probab_perc1 = str(probab_perc)+"%"
         # Results obtained from the deserialized object(ML object)
         Heart_Disease = result[0]
 
@@ -192,7 +192,7 @@ def predict_chances_heart(request):
             slope_value = "Downsloping"
 
         return JsonResponse(
-            {'result': disease, 'prediction_percentage': probab_perc, 'Patient_ID': Patient_ID, 'Patient_Name': Patient_Name, 'Patient_Age': Patient_Age,
+            {'result': disease, 'prediction_percentage': probab_perc1, 'Patient_ID': Patient_ID, 'Patient_Name': Patient_Name, 'Patient_Age': Patient_Age,
              'Patient_Gender': gender, 'cp': Chest_Pain, 'trestbps': Trestbps, 'chol': Cholesterol,
              'restecg': rest, 'thalach': Thalach, 'exang': exang_value, 'oldpeak': Oldpeak, 'slope': slope_value,
              'thal': thal_value, 'fbs': fasting, 'ca': CA},

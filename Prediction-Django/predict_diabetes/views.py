@@ -68,6 +68,7 @@ def predict_chances_diabetes(request):
         probab_perc=round(probability[0][1]*100,3)
 
         print(probab_perc)
+        probab_perc1 = str(probab_perc) + "%"
 
         Diabetes_Disease = result[0]
 
@@ -132,7 +133,7 @@ def predict_chances_diabetes(request):
         else:
             BMI = "Over Weight-Risk is High for Occurance of Diabetes"
 
-        return JsonResponse({'result': disease, 'prediction_percentage': probab_perc, 'Patient_ID': Patient_ID, 'Patient_Age': Patient_Age, 'Patient_Name': Patient_Name,
+        return JsonResponse({'result': disease, 'prediction_percentage': probab_perc1, 'Patient_ID': Patient_ID, 'Patient_Age': Patient_Age, 'Patient_Name': Patient_Name,
                              'Patient_Gender': Patient_Gender, 'pregnancies': Pregnancies, 'glucose': Glucose, 'bloodPressure': BloodPressure,
                              'skinThickness': SkinThickness, 'insulin': Insulin, 'bmi': BMI, 'diabetesPedigreeFunction': DiabetesPedigreeFunction
                             },
