@@ -19,7 +19,7 @@ def predict_diabetes_render_pdf_view(request, *args, **kwargs):
     context = {'predict_diabetes': predict_diabetes, 'doctor_details': doctor_details, 'doctor_details_new': doctor_details_new}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="Diabetes Disease Report.pdf"'
+    response['Content-Disposition'] = 'attachment; filename="Diabetes Report.pdf"'
     # find the template and render it.
     template = get_template(template_path)
     print(template)
